@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">DMHelper</string>
+    <string name="enter_password">Password</string>
+    <string name="enter_password">Password</string>
+    <string name="enter_username">Username</string>
 </resources>
