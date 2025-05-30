@@ -1,6 +1,6 @@
 package com.example.dmhelper.presentation.login
 
-import com.example.booksharing.presentation.common.FieldFormUiState
+import com.example.dmhelper.presentation.common.FieldFormUiState
 
 data class LoginFormState(
     var usernameFormState: FieldFormUiState,
