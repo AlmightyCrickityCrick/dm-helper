@@ -36,7 +36,7 @@ fun AnimatedSplashScreen(navController: NavController) {
         startAnimation = true
         delay(4000)
         navController.popBackStack()
-        navController.navigate(ScreenRoute.LOGIN)
+        navController.navigate(ScreenRoute.LOGIN.route)
     }
     Splash(alpha = alphaAnim.value)
 }
@@ -47,10 +47,10 @@ fun Splash(alpha: Float) {
         modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surface),
         contentAlignment = Alignment.Center
     ) {
-//        Image(
-//            painter = painterResource(id = R.drawable.ic_splash_screen),
-//            contentDescription = stringResource(R.string.splash_screen_content),
-//            alpha = alpha,
-//        )
+        Image(
+            painter = painterResource(id = R.drawable.bg_farm),
+            contentDescription = "Intro screen",
+            alpha = alpha,
+        )
     }
 }

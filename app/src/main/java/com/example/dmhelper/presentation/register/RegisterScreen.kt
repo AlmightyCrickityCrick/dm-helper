@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,16 +32,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavHostController
 import com.example.booksharing.presentation.components.input.SimpleInput
 import com.example.dmhelper.R
+import com.example.dmhelper.data.user.LoginResponseDTO
+import com.example.dmhelper.data.user.Result
 import com.example.dmhelper.navigation.ScreenRoute
 import com.example.dmhelper.presentation.common.FROSTED_GLASS_SHADER
 import com.example.dmhelper.presentation.common.OrientationPreviews
 import com.example.dmhelper.presentation.components.button.PrimaryButton
 import com.example.dmhelper.presentation.components.input.PasswordInput
 import com.example.dmhelper.ui.theme.DMHelperTheme
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -67,7 +76,11 @@ fun RegisterScreen(
                     onEmailChanged = {newValue -> viewModel.onEmailChanged(newValue)},
                     buttonState = registerFormState.isDataValid,
                     onButtonPressed = { viewModel.register() },
-                    onNoAccount = {navController.navigate(ScreenRoute.LOGIN)}
+                    onNoAccount = {navController.navigate(ScreenRoute.LOGIN.route)}
+                )
+                RegisterResult(
+                    eventChannel = viewModel.eventChannel,
+                    onLoginSuccess = {navController.navigate(ScreenRoute.HOME.route)}
                 )
             }
         }
@@ -117,7 +130,7 @@ private fun RegisterForm(
 ) {
     Column(modifier = modifier.fillMaxWidth(0.9f)) {
         Text(
-            text = stringResource(R.string.welcome),
+            text = stringResource(R.string.join_us),
             style = MaterialTheme.typography.displayMedium,
             color = MaterialTheme.colorScheme.onSecondary,
         )
@@ -130,7 +143,7 @@ private fun RegisterForm(
         SimpleInput(
             action = { newValue -> onEmailChanged.invoke(newValue) },
             placeholder = R.string.email,
-            state = registerFormState.usernameFormState
+            state = registerFormState.emailFormState
         )
         PasswordInput(
             action = { newValue -> onPasswordChanged.invoke(newValue) },
@@ -179,6 +192,19 @@ fun BlurryCard(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
                 },
         )
         content()
+    }
+}
+
+@Composable
+private fun RegisterResult(
+    eventChannel: Flow<Result<LoginResponseDTO>>,
+    onLoginSuccess: () -> Unit,
+) {
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    LaunchedEffect(key1 = Unit) {
+        lifecycle.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+            launch { eventChannel.collectLatest { event -> if(event is Result.Success) onLoginSuccess() } }
+        }
     }
 }
 

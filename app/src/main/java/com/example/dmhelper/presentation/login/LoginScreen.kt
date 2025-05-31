@@ -2,8 +2,7 @@ package com.example.dmhelper.presentation.login
 
 
 import android.annotation.SuppressLint
-import android.graphics.RenderEffect
-import android.graphics.Shader
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -17,30 +16,38 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import com.example.dmhelper.data.user.Result
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.BlurredEdgeTreatment
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asComposeRenderEffect
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavHostController
 import com.example.booksharing.presentation.components.input.SimpleInput
 import com.example.dmhelper.R
+import com.example.dmhelper.data.user.LoginResponseDTO
 import com.example.dmhelper.navigation.ScreenRoute
-import com.example.dmhelper.presentation.common.FROSTED_GLASS_SHADER
 import com.example.dmhelper.presentation.common.OrientationPreviews
 import com.example.dmhelper.presentation.components.button.PrimaryButton
 import com.example.dmhelper.presentation.components.input.PasswordInput
 import com.example.dmhelper.ui.theme.DMHelperTheme
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -50,6 +57,7 @@ fun LoginScreen(
     navController: NavHostController
 ) {
     val loginFormState by viewModel.loginFormState.collectAsStateWithLifecycle()
+    viewModel.eventChannel
     Scaffold(
         containerColor = Color.Transparent,
         modifier = Modifier
@@ -66,7 +74,11 @@ fun LoginScreen(
                     onPasswordChanged = { newValue -> viewModel.onPasswordChanged(newValue) },
                     buttonState = loginFormState.isDataValid,
                     onButtonPressed = { viewModel.login() },
-                    onNoAccount = {navController.navigate(ScreenRoute.REGISTER)}
+                    onNoAccount = {navController.navigate(ScreenRoute.REGISTER.route)}
+                )
+                LoginResult(
+                    eventChannel = viewModel.eventChannel,
+                    onLoginSuccess ={navController.navigate(ScreenRoute.HOME.route)}
                 )
             }
         }
@@ -112,7 +124,10 @@ private fun LoginForm(
     onNoAccount: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.fillMaxWidth(0.9f)) {
+    Column(modifier = modifier.fillMaxSize()
+        .background(color = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f))
+        .padding(30.dp)
+    ) {
         Text(
             text = stringResource(R.string.welcome),
             style = MaterialTheme.typography.displayMedium,
@@ -159,18 +174,29 @@ fun BlurryCard(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
         Box(
             modifier = Modifier
                 .matchParentSize()
-                .background(color = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f))
-                .graphicsLayer {
-                    renderEffect = RenderEffect
-                        .createBlurEffect(30f, 30f, Shader.TileMode.CLAMP)
-                        .asComposeRenderEffect()
-                }.graphicsLayer {
-                    renderEffect =  RenderEffect.
-                    createRuntimeShaderEffect(FROSTED_GLASS_SHADER, "inputShader")
-                        .asComposeRenderEffect()
-                },
-        )
+                .blur(10.dp, BlurredEdgeTreatment.Unbounded)
+        ){
+            Image(
+                painter = painterResource(id = R.drawable.bg_login),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize())
+        }
             content()
+    }
+}
+
+
+@Composable
+private fun LoginResult(
+    eventChannel: Flow<Result<LoginResponseDTO>>,
+    onLoginSuccess: () -> Unit,
+) {
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    LaunchedEffect(key1 = Unit) {
+        lifecycle.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+            launch { eventChannel.collectLatest { event -> if(event is Result.Success) onLoginSuccess() } }
+        }
     }
 }
 

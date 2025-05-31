@@ -17,7 +17,7 @@ fun SimpleInput(
 ) {
     PrimaryInput(
         initialValue = state.fieldText,
-        placeholder = stringResource(R.string.username),
+        placeholder = stringResource(placeholder),
         isError = state.isError,
         onValueChange = { newValue -> action.invoke(newValue) },
         modifier = modifier

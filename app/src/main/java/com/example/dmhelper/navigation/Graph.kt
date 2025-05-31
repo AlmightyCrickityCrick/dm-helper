@@ -2,6 +2,7 @@ package com.example.dmhelper.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import com.example.dmhelper.presentation.home.HomeScreen
 import com.example.dmhelper.presentation.login.LoginScreen
 import com.example.dmhelper.presentation.register.RegisterScreen
 
@@ -20,13 +21,13 @@ enum class ScreenRoute ( val route : String ) {
     LOGIN ( "LOGIN_ROUTE" ),
     HOME("HOME_ROUTE"),
     REGISTER("REGISTER_ROUTE"),
-    SPLASH("SPLASH_ROUTE");
+    SPLASH(Graph.SPLASH_SCREEN);
 
     @Composable
     fun Screen(navController: NavHostController)  = when (this) {
         LOGIN -> LoginScreen(navController = navController)
         REGISTER -> RegisterScreen(navController = navController)
-        HOME ->    RegisterScreen(navController = navController)
+        HOME ->    HomeScreen(navController = navController)
         SPLASH -> AnimatedSplashScreen(navController)
     }
 }
