@@ -9,8 +9,9 @@ import com.example.dmhelper.presentation.components.input.PrimaryInput
 
 
 @Composable
-fun UsernameInput(
+fun SimpleInput(
     action: (String) -> Unit,
+    placeholder : Int = R.string.username,
     state: FieldFormUiState,
     modifier: Modifier = Modifier
 ) {

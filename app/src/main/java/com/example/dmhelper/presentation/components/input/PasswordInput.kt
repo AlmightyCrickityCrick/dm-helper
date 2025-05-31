@@ -2,6 +2,7 @@ package com.example.dmhelper.presentation.components.input
 
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,7 +36,8 @@ fun PasswordInput(
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_password),
                 contentDescription = stringResource(R.string.password_toggle),
-                modifier = Modifier.clickable { isPasswordVisible = !isPasswordVisible }
+                modifier = Modifier.clickable { isPasswordVisible = !isPasswordVisible },
+                tint = MaterialTheme.colorScheme.onSecondary
             )
         }
     )

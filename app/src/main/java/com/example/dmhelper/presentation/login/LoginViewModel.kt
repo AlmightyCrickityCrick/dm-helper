@@ -3,14 +3,21 @@ package com.example.dmhelper.presentation.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.dmhelper.data.user.AuthDTO
+import com.example.dmhelper.data.user.LoginResponseDTO
+import com.example.dmhelper.data.user.Result
+import com.example.dmhelper.data.user.UserRepository
+import com.example.dmhelper.data.user.UserRepositoryImpl
 import com.example.dmhelper.presentation.common.FieldFormUiState
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class LoginViewModel() : ViewModel() {
+class LoginViewModel(private val repository: UserRepository = UserRepositoryImpl()) : ViewModel() {
 
     private val _loginFormState = MutableStateFlow(
         LoginFormState(
@@ -20,6 +27,8 @@ class LoginViewModel() : ViewModel() {
         )
     )
     val loginFormState: StateFlow<LoginFormState> = _loginFormState.asStateFlow()
+    private val _eventChannel = Channel<Result<LoginResponseDTO>>()
+    val eventChannel = _eventChannel.receiveAsFlow()
 
     fun onUsernameChanged(text: String) {
         _loginFormState.update { previous ->
@@ -72,34 +81,33 @@ class LoginViewModel() : ViewModel() {
 
     fun login() {
         viewModelScope.launch {
-//            val result = repository.login(
-//                AuthDTO(
-//                    username = loginFormState.value.usernameFormState.fieldText.trim(),
-//                    password = loginFormState.value.passwordFormState.fieldText.trim()
-//                )
-//            )
-//            when (result) {
-//                is Result.Success -> {
-//                    _eventChannel.send(AuthEvent.AuthSuccess)
-//                }
-//
-//                is Result.ServerError -> {
-//                    _eventChannel.send(AuthEvent.ServerError)
-//                }
-//
-//                is Result.ValidationError -> {
-            _loginFormState.update { prev ->
-                LoginFormState(
-                    usernameFormState = FieldFormUiState(
-                        fieldText = prev.usernameFormState.fieldText,
-                        isError = true
-                    ),
-                    passwordFormState = FieldFormUiState(
-                        fieldText = "",
-                        isError = true
-                    )
+            val result = repository.login(
+                AuthDTO(
+                    username = loginFormState.value.usernameFormState.fieldText.trim(),
+                    password = loginFormState.value.passwordFormState.fieldText.trim()
                 )
+            )
+            when (result) {
+                is Result.Success -> {
+                    _eventChannel.send(result)
+                }
+
+                is Result.ServerError -> {}
+                is Result.ValidationError -> {
+                    _loginFormState.update { prev ->
+                        LoginFormState(
+                            usernameFormState = FieldFormUiState(
+                                fieldText = prev.usernameFormState.fieldText,
+                                isError = true
+                            ),
+                            passwordFormState = FieldFormUiState(
+                                fieldText = "",
+                                isError = true
+                            )
+                        )
 //                    }
+                    }
+                }
             }
         }
     }
