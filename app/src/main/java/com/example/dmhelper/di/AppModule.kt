@@ -1,6 +1,6 @@
 package com.example.dmhelper.di
 
-import com.example.dmhelper.presentation.campaignlist.CampaignListViewModel
+import com.example.dmhelper.presentation.campaign.list.CampaignListViewModel
 import com.example.dmhelper.presentation.character.create.CharacterCreateViewModel
 import com.example.dmhelper.presentation.character.list.CharacterListViewModel
 import com.example.dmhelper.presentation.home.HomeViewModel
@@ -16,5 +16,4 @@ val appModule = module {
     viewModel { CampaignListViewModel() }
     viewModel { CharacterListViewModel() }
     viewModel { CharacterCreateViewModel() }
-
 }

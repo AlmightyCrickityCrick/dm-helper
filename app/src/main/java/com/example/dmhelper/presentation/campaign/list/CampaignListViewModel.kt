@@ -1,4 +1,4 @@
-package com.example.dmhelper.presentation.campaignlist
+package com.example.dmhelper.presentation.campaign.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

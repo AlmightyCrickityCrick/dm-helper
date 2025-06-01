@@ -48,14 +48,14 @@ fun HomeScreen(navController: NavHostController,
             RoundButton(
                 size = RoundButtonSizes.M,
                 text = "Characters",
-                onClick = { navController.navigate(ScreenRoute.CHARACTER_LIST.route) },
+                onClick = { navController.navigate(ScreenRoute.CharacterListRoute.route) },
                 modifier = Modifier
                     .offset(x = (-225 * wFactor).dp, y = (-90 * wFactor).dp)
             )
             RoundButton(
                 size = RoundButtonSizes.L,
                 text = "Campaigns",
-                onClick = { navController.navigate(ScreenRoute.CAMPAIGN_LIST.route) },
+                onClick = { navController.navigate(ScreenRoute.CampaignListRoute.route) },
                 modifier = Modifier
                     .offset(x = (-34 * wFactor).dp, y = (0).dp)
             )

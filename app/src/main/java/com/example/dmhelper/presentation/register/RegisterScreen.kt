@@ -76,11 +76,11 @@ fun RegisterScreen(
                     onEmailChanged = {newValue -> viewModel.onEmailChanged(newValue)},
                     buttonState = registerFormState.isDataValid,
                     onButtonPressed = { viewModel.register() },
-                    onNoAccount = {navController.navigate(ScreenRoute.LOGIN.route)}
+                    onNoAccount = {navController.navigate(ScreenRoute.LoginRoute.route)}
                 )
                 RegisterResult(
                     eventChannel = viewModel.eventChannel,
-                    onLoginSuccess = {navController.navigate(ScreenRoute.HOME.route)}
+                    onLoginSuccess = {navController.navigate(ScreenRoute.HomeRoute.route)}
                 )
             }
         }

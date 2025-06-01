@@ -73,11 +73,11 @@ fun LoginScreen(
                     onPasswordChanged = { newValue -> viewModel.onPasswordChanged(newValue) },
                     buttonState = loginFormState.isDataValid,
                     onButtonPressed = { viewModel.login() },
-                    onNoAccount = {navController.navigate(ScreenRoute.REGISTER.route)}
+                    onNoAccount = {navController.navigate(ScreenRoute.RegisterRoute.route)}
                 )
                 LoginResult(
                     eventChannel = viewModel.eventChannel,
-                    onLoginSuccess ={navController.navigate(ScreenRoute.HOME.route)}
+                    onLoginSuccess ={navController.navigate(ScreenRoute.HomeRoute.route)}
                 )
             }
         }

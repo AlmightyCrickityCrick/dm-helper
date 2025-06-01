@@ -12,6 +12,8 @@ compose = "1.8.2"
 navigation = "2.9.0"
 uiTextGoogleFonts = "1.8.2"
 koin = "3.2.0"
+serialization="1.9.23"
+serialization-json="1.6.3"
 
 
 [libraries]
@@ -34,10 +36,13 @@ compose-material = { module = "androidx.compose.material:material", version.ref 
 compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization-json"  }
 
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization" }
+
 

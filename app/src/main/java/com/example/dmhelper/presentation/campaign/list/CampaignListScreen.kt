@@ -1,4 +1,4 @@
-package com.example.dmhelper.presentation.campaignlist
+package com.example.dmhelper.presentation.campaign.list
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
@@ -29,6 +29,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.dmhelper.R
+import com.example.dmhelper.data.campaign.toRoute
 import com.example.dmhelper.navigation.ScreenRoute
 import com.example.dmhelper.presentation.common.OrientationPreview
 import com.example.dmhelper.presentation.common.getFactors
@@ -36,7 +37,6 @@ import com.example.dmhelper.presentation.components.board.ItemBoard
 import com.example.dmhelper.presentation.components.board.TopBoard
 import com.example.dmhelper.presentation.components.button.RoundButton
 import com.example.dmhelper.presentation.components.dialog.CreateCampaignDialog
-import com.example.dmhelper.presentation.components.dialog.CreateCharacterDialog
 import com.example.dmhelper.ui.theme.DMHelperTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -71,7 +71,7 @@ fun CampaignListScreen(
                         .align(Alignment.BottomStart)
                         .padding(start = 18.dp, end = 18.dp, bottom = 70.dp)
                 ) {
-                    RoundButton(text = "New", onClick = {openDialog.value = true})
+                    RoundButton(text = "New", onClick = { openDialog.value = true })
                     Spacer(Modifier.width(20.dp))
                     RoundButton(text = "Join", onClick = {})
                 }
@@ -86,7 +86,7 @@ fun CampaignListScreen(
             ) {
                 for (camp in campaignList.list) {
                     if (!camp.isOwner) {
-                        ItemBoard(text = camp.name, onClick = {})
+                        ItemBoard(text = camp.name, onClick = {navController.navigate(camp.toRoute())})
                     } else {
                         ItemBoard(
                             text = camp.name,
@@ -97,7 +97,7 @@ fun CampaignListScreen(
                                     tint = MaterialTheme.colorScheme.secondaryContainer,
                                     modifier = modifier
                                 )
-                            }, onClick = {})
+                            }, onClick = { navController.navigate(camp.toRoute()) })
                     }
                     Spacer(Modifier.height(16.dp))
                 }
@@ -108,11 +108,12 @@ fun CampaignListScreen(
             CreateCampaignDialog(
                 onDismissRequest = { openDialog.value = false },
                 inputState = campaignForm,
-                onInputChanged = {newValue -> viewModel.onCampaignFieldChanged(newValue) },
+                onInputChanged = { newValue -> viewModel.onCampaignFieldChanged(newValue) },
                 onLeftButtonClicked = {
                     viewModel.createCampaign()
-                    openDialog.value = false },
-                onRightButtonClicked = {openDialog.value = false}
+                    openDialog.value = false
+                },
+                onRightButtonClicked = { openDialog.value = false }
             )
         }
     }

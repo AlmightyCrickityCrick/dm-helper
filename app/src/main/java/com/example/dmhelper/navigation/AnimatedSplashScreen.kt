@@ -16,7 +16,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.dmhelper.R
 import kotlinx.coroutines.delay
@@ -36,7 +35,7 @@ fun AnimatedSplashScreen(navController: NavController) {
         startAnimation = true
         delay(4000)
         navController.popBackStack()
-        navController.navigate(ScreenRoute.LOGIN.route)
+        navController.navigate(ScreenRoute.LoginRoute.route)
     }
     Splash(alpha = alphaAnim.value)
 }
