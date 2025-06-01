@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import com.example.dmhelper.data.user.Result
+import com.example.dmhelper.data.common.Result
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,7 +41,7 @@ import com.example.booksharing.presentation.components.input.SimpleInput
 import com.example.dmhelper.R
 import com.example.dmhelper.data.user.LoginResponseDTO
 import com.example.dmhelper.navigation.ScreenRoute
-import com.example.dmhelper.presentation.common.OrientationPreviews
+import com.example.dmhelper.presentation.common.OrientationPreview
 import com.example.dmhelper.presentation.components.button.PrimaryButton
 import com.example.dmhelper.presentation.components.input.PasswordInput
 import com.example.dmhelper.ui.theme.DMHelperTheme
@@ -200,7 +200,7 @@ private fun LoginResult(
     }
 }
 
-@OrientationPreviews
+@OrientationPreview
 @Composable
 fun LoginScreenPreviewTablet() {
     DMHelperTheme {

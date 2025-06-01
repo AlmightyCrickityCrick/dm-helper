@@ -11,4 +11,4 @@ import androidx.compose.ui.tooling.preview.Preview
     widthDp = 852,
     heightDp = 393
 )
-annotation class OrientationPreviews
+annotation class OrientationPreview

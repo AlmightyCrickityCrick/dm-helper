@@ -3,10 +3,9 @@ package com.example.dmhelper.presentation.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dmhelper.data.user.AuthDTO
 import com.example.dmhelper.data.user.LoginResponseDTO
 import com.example.dmhelper.data.user.RegisterDTO
-import com.example.dmhelper.data.user.Result
+import com.example.dmhelper.data.common.Result
 import com.example.dmhelper.data.user.UserRepository
 import com.example.dmhelper.data.user.UserRepositoryImpl
 import com.example.dmhelper.presentation.common.FieldFormUiState

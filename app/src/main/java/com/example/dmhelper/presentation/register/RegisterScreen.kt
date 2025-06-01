@@ -40,10 +40,10 @@ import androidx.navigation.NavHostController
 import com.example.booksharing.presentation.components.input.SimpleInput
 import com.example.dmhelper.R
 import com.example.dmhelper.data.user.LoginResponseDTO
-import com.example.dmhelper.data.user.Result
+import com.example.dmhelper.data.common.Result
 import com.example.dmhelper.navigation.ScreenRoute
 import com.example.dmhelper.presentation.common.FROSTED_GLASS_SHADER
-import com.example.dmhelper.presentation.common.OrientationPreviews
+import com.example.dmhelper.presentation.common.OrientationPreview
 import com.example.dmhelper.presentation.components.button.PrimaryButton
 import com.example.dmhelper.presentation.components.input.PasswordInput
 import com.example.dmhelper.ui.theme.DMHelperTheme
@@ -208,7 +208,7 @@ private fun RegisterResult(
     }
 }
 
-@OrientationPreviews
+@OrientationPreview
 @Composable
 fun RegisterScreenPreviewTablet() {
     DMHelperTheme {

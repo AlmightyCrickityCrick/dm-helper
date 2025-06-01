@@ -1,5 +1,7 @@
 package com.example.dmhelper.data.user
 
+import com.example.dmhelper.data.common.Result
+
 class UserRepositoryImpl:UserRepository {
     override suspend fun login(authDTO: AuthDTO): Result<LoginResponseDTO> {
         return Result.Success(LoginResponseDTO("username", 3))

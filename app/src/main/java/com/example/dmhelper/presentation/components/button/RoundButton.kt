@@ -65,7 +65,7 @@ fun RoundButton(
 }
 
 enum class RoundButtonSizes(val height: Dp, val width: Dp) {
-    DEFAULT(125.dp, 120.dp),
+    DEFAULT(130.dp, 120.dp),
     M(147.dp, 130.dp),
     L(180.dp, 160.dp),
     XL(205.dp, 180.dp),
