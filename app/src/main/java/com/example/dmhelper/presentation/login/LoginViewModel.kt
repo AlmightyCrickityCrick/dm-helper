@@ -60,10 +60,10 @@ class LoginViewModel(private val repository: UserRepository = UserRepositoryImpl
             it.copy(
                 isDataValid = isPasswordValid && isUsernameValid,
                 passwordFormState = it.passwordFormState.copy(
-                    isError = !isPasswordValid || !it.passwordFormState.fieldText.isEmpty()
+                    isError = !isPasswordValid
                 ),
                 usernameFormState = it.usernameFormState.copy(
-                    isError = !isUsernameValid || !it.usernameFormState.fieldText.isEmpty()
+                    isError = !isUsernameValid
                 )
             )
         }

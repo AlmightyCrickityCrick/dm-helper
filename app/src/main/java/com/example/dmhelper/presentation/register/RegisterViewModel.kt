@@ -72,10 +72,10 @@ class RegisterViewModel(private val repository: UserRepository = UserRepositoryI
             it.copy(
                 isDataValid = isPasswordValid && isUsernameValid,
                 passwordFormState = it.passwordFormState.copy(
-                    isError = !isPasswordValid || it.passwordFormState.fieldText.isNotEmpty()
+                    isError = !isPasswordValid
                 ),
                 usernameFormState = it.usernameFormState.copy(
-                    isError = !isUsernameValid || it.usernameFormState.fieldText.isNotEmpty()
+                    isError = !isUsernameValid
                 )
             )
         }

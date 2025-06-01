@@ -1,4 +1,4 @@
-package com.example.dmhelper.presentation.characterlist
+package com.example.dmhelper.presentation.character.list
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
@@ -17,6 +17,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -42,11 +44,13 @@ import com.example.dmhelper.data.character.ClassEnum.WARLOCK
 import com.example.dmhelper.data.character.ClassEnum.WIZARD
 import com.example.dmhelper.data.character.RaceEnum
 import com.example.dmhelper.data.character.toEnumOrNull
+import com.example.dmhelper.navigation.ScreenRoute
 import com.example.dmhelper.presentation.common.OrientationPreview
 import com.example.dmhelper.presentation.common.getFactors
 import com.example.dmhelper.presentation.components.board.ItemBoard
 import com.example.dmhelper.presentation.components.board.TopBoard
 import com.example.dmhelper.presentation.components.button.AddButton
+import com.example.dmhelper.presentation.components.dialog.CreateCharacterDialog
 import com.example.dmhelper.ui.theme.DMHelperTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -58,6 +62,7 @@ fun CharacterListScreen(
 ) {
     val characterList by viewModel.characterFormState.collectAsStateWithLifecycle()
     viewModel.getCharacterList()
+    val openDialog = remember { mutableStateOf(false) }
     Scaffold(
         backgroundColor = MaterialTheme.colorScheme.background.copy(alpha = 0f),
         modifier = Modifier
@@ -101,8 +106,15 @@ fun CharacterListScreen(
                         onClick = {})
                     Spacer(Modifier.height(16.dp))
                 }
-                AddButton(modifier = Modifier.width(492.dp), onClick = {})
+                AddButton(modifier = Modifier.width(492.dp), onClick = { openDialog.value = true })
             }
+        }
+        if (openDialog.value) {
+            CreateCharacterDialog(
+                onDismissRequest = { openDialog.value = false },
+                onLeftButtonClicked = {},
+                onRightButtonClicked = {navController.navigate(ScreenRoute.CHARACTER_LIST.route)}
+            )
         }
     }
 }

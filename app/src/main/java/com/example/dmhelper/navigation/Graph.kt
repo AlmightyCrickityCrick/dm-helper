@@ -3,7 +3,8 @@ package com.example.dmhelper.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.example.dmhelper.presentation.campaignlist.CampaignListScreen
-import com.example.dmhelper.presentation.characterlist.CharacterListScreen
+import com.example.dmhelper.presentation.character.create.CharacterCreateScreen
+import com.example.dmhelper.presentation.character.list.CharacterListScreen
 import com.example.dmhelper.presentation.home.HomeScreen
 import com.example.dmhelper.presentation.login.LoginScreen
 import com.example.dmhelper.presentation.register.RegisterScreen
@@ -17,7 +18,8 @@ object Graph {
         ScreenRoute.REGISTER,
         ScreenRoute.HOME,
         ScreenRoute.CHARACTER_LIST,
-        ScreenRoute.CAMPAIGN_LIST
+        ScreenRoute.CAMPAIGN_LIST,
+        ScreenRoute.CREATE_CHARACTER
     )
 }
 
@@ -27,6 +29,7 @@ enum class ScreenRoute(val route: String) {
     REGISTER("REGISTER_ROUTE"),
     SPLASH(Graph.SPLASH_SCREEN),
     CHARACTER_LIST("CHARACTER_LIST_ROUTE"),
+    CREATE_CHARACTER("CREATE_CHARACTER_ROUTE"),
     CAMPAIGN_LIST("CAMPAIGN_LIST_ROUTE");
 
 
@@ -38,5 +41,6 @@ enum class ScreenRoute(val route: String) {
         SPLASH -> AnimatedSplashScreen(navController)
         CHARACTER_LIST -> CharacterListScreen(navController = navController)
         CAMPAIGN_LIST -> CampaignListScreen(navController = navController)
+        CREATE_CHARACTER -> CharacterCreateScreen(navController = navController)
     }
 }

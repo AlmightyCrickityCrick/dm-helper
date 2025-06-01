@@ -17,6 +17,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -27,11 +29,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.dmhelper.R
+import com.example.dmhelper.navigation.ScreenRoute
 import com.example.dmhelper.presentation.common.OrientationPreview
 import com.example.dmhelper.presentation.common.getFactors
 import com.example.dmhelper.presentation.components.board.ItemBoard
 import com.example.dmhelper.presentation.components.board.TopBoard
 import com.example.dmhelper.presentation.components.button.RoundButton
+import com.example.dmhelper.presentation.components.dialog.CreateCampaignDialog
+import com.example.dmhelper.presentation.components.dialog.CreateCharacterDialog
 import com.example.dmhelper.ui.theme.DMHelperTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -41,8 +46,10 @@ fun CampaignListScreen(
     navController: NavHostController,
     viewModel: CampaignListViewModel = koinViewModel()
 ) {
-    val campaignList by viewModel.campaignFormState.collectAsStateWithLifecycle()
+    val campaignList by viewModel.campaignListState.collectAsStateWithLifecycle()
     viewModel.getCampaignList()
+    val openDialog = remember { mutableStateOf(false) }
+    val campaignForm by viewModel.campaignFormState.collectAsStateWithLifecycle()
     Scaffold(
         backgroundColor = MaterialTheme.colorScheme.background.copy(alpha = 0f),
         modifier = Modifier
@@ -64,7 +71,7 @@ fun CampaignListScreen(
                         .align(Alignment.BottomStart)
                         .padding(start = 18.dp, end = 18.dp, bottom = 70.dp)
                 ) {
-                    RoundButton(text = "New", onClick = {})
+                    RoundButton(text = "New", onClick = {openDialog.value = true})
                     Spacer(Modifier.width(20.dp))
                     RoundButton(text = "Join", onClick = {})
                 }
@@ -96,6 +103,17 @@ fun CampaignListScreen(
                 }
 
             }
+        }
+        if (openDialog.value) {
+            CreateCampaignDialog(
+                onDismissRequest = { openDialog.value = false },
+                inputState = campaignForm,
+                onInputChanged = {newValue -> viewModel.onCampaignFieldChanged(newValue) },
+                onLeftButtonClicked = {
+                    viewModel.createCampaign()
+                    openDialog.value = false },
+                onRightButtonClicked = {openDialog.value = false}
+            )
         }
     }
 }

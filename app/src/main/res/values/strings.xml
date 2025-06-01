@@ -5,6 +5,8 @@
     <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="campaign_name">Campaign Name</string>
+    <string name="campaign_code">Campaign Code</string>
 
     <!--  Button Strings -->
     <string name="login">Login</string>

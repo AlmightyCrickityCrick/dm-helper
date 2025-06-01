@@ -1,4 +1,4 @@
-package com.example.dmhelper.presentation.characterlist
+package com.example.dmhelper.presentation.character.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

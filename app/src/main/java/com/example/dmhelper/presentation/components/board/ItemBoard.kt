@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,7 +35,7 @@ fun ItemBoard(
     text: String,
     subtext: String? = null,
     onClick: () -> Unit,
-    LeftIcon: @Composable (modifier: Modifier) -> Unit = {},
+    LeftIcon: @Composable() ((modifier: Modifier) -> Unit)? = null,
     RightIcon: @Composable (modifier: Modifier) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
@@ -52,7 +52,7 @@ fun ItemBoard(
         contentAlignment = Alignment.Center
     ) {
         Row(Modifier.padding(horizontal = 18.dp), verticalAlignment = Alignment.CenterVertically) {
-            LeftIcon(Modifier.size(42.dp))
+           if(LeftIcon == null) Spacer(Modifier.size(42.dp)) else LeftIcon(Modifier.size(42.dp))
             Column(Modifier.weight(1f).fillMaxHeight().padding(horizontal = 12.dp), verticalArrangement = Arrangement.Center) {
                 Text(
                     text = text,
@@ -74,7 +74,8 @@ fun ItemBoard(
 @Composable
 fun PreviewCharacterItemBoard() {
     DMHelperTheme {
-        ItemBoard(text = "Elaria",
+        ItemBoard(
+            text = "Elaria",
             LeftIcon ={ modifier ->  Icon( painter = painterResource(R.drawable.ic_rogue),
             contentDescription = "Rogue Icon",
                 tint = MaterialTheme.colorScheme.secondaryContainer,
@@ -88,7 +89,8 @@ fun PreviewCharacterItemBoard() {
 @Composable
 fun PreviewCampaignItemBoard() {
     DMHelperTheme {
-        ItemBoard(text = "Meighty Nein",
+        ItemBoard(
+            text = "Meighty Nein",
             LeftIcon ={ modifier ->  Icon( painter = painterResource(R.drawable.ic_crown),
                 contentDescription = "Rogue Icon",
                 tint = MaterialTheme.colorScheme.secondaryContainer,
