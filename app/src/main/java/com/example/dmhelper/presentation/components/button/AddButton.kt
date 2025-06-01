@@ -1,6 +1,7 @@
 package com.example.dmhelper.presentation.components.button
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -23,7 +24,7 @@ import com.example.dmhelper.ui.theme.DMHelperTheme
 
 @Composable
 fun AddButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+    Row(modifier = modifier.height(50.dp), verticalAlignment = Alignment.CenterVertically) {
         Box(
             Modifier
                 .weight(0.4f)
@@ -31,7 +32,7 @@ fun AddButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
                 .background(MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.6f))
         )
         Icon(
-            modifier = Modifier.padding(horizontal = 12.dp).size(48.dp),
+            modifier = Modifier.padding(horizontal = 12.dp).size(48.dp).clickable { onClick.invoke() },
             painter = painterResource(R.drawable.ic_add),
             contentDescription = "Add More",
             tint = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.6f)

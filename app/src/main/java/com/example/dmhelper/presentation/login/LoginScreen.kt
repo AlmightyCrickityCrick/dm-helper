@@ -39,7 +39,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavHostController
 import com.example.booksharing.presentation.components.input.SimpleInput
 import com.example.dmhelper.R
-import com.example.dmhelper.data.user.LoginResponseDTO
+import com.example.dmhelper.data.user.dto.LoginResponseDTO
 import com.example.dmhelper.navigation.ScreenRoute
 import com.example.dmhelper.presentation.common.OrientationPreview
 import com.example.dmhelper.presentation.components.button.PrimaryButton
@@ -57,7 +57,6 @@ fun LoginScreen(
     navController: NavHostController
 ) {
     val loginFormState by viewModel.loginFormState.collectAsStateWithLifecycle()
-    viewModel.eventChannel
     Scaffold(
         containerColor = Color.Transparent,
         modifier = Modifier

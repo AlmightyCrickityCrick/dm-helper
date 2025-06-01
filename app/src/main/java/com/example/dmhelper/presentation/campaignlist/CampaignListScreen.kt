@@ -16,12 +16,14 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.dmhelper.R
@@ -39,13 +41,14 @@ fun CampaignListScreen(
     navController: NavHostController,
     viewModel: CampaignListViewModel = koinViewModel()
 ) {
-
+    val campaignList by viewModel.campaignFormState.collectAsStateWithLifecycle()
+    viewModel.getCampaignList()
     Scaffold(
         backgroundColor = MaterialTheme.colorScheme.background.copy(alpha = 0f),
         modifier = Modifier
             .fillMaxSize()
             .paint(painterResource(R.drawable.bg_street), contentScale = ContentScale.Crop)
-    ) {  _ ->
+    ) { _ ->
         val (wFactor, hFactor) = getFactors()
         val scrollState = rememberScrollState()
         Row(modifier = Modifier.fillMaxSize()) {
@@ -59,7 +62,7 @@ fun CampaignListScreen(
                 Row(
                     modifier = Modifier
                         .align(Alignment.BottomStart)
-                        .padding(start = 18.dp, end =18.dp, bottom = 70.dp)
+                        .padding(start = 18.dp, end = 18.dp, bottom = 70.dp)
                 ) {
                     RoundButton(text = "New", onClick = {})
                     Spacer(Modifier.width(20.dp))
@@ -74,38 +77,24 @@ fun CampaignListScreen(
                     .verticalScroll(scrollState),
                 horizontalAlignment = Alignment.End
             ) {
-                ItemBoard(
-                    text = "Elaria",
-                    LeftIcon = { modifier ->
-                        Icon(
-                            painter = painterResource(R.drawable.ic_crown),
-                            contentDescription = "You are the DM here",
-                            tint = MaterialTheme.colorScheme.secondaryContainer,
-                            modifier = modifier
-                        )
-                    }, onClick = {})
-                Spacer(Modifier.height(16.dp))
-                ItemBoard(
-                    text = "Elaria",
-                    LeftIcon = { modifier ->
-                        Icon(
-                            painter = painterResource(R.drawable.ic_rogue),
-                            contentDescription = "Rogue Icon",
-                            tint = MaterialTheme.colorScheme.secondaryContainer,
-                            modifier = modifier
-                        )
-                    }, subtext = "Human Bard", onClick = {})
-                Spacer(Modifier.height(16.dp))
-                ItemBoard(
-                    text = "Elaria",
-                    LeftIcon = { modifier ->
-                        Icon(
-                            painter = painterResource(R.drawable.ic_rogue),
-                            contentDescription = "Rogue Icon",
-                            tint = MaterialTheme.colorScheme.secondaryContainer,
-                            modifier = modifier
-                        )
-                    }, subtext = "Human Bard", onClick = {})
+                for (camp in campaignList.list) {
+                    if (!camp.isOwner) {
+                        ItemBoard(text = camp.name, onClick = {})
+                    } else {
+                        ItemBoard(
+                            text = camp.name,
+                            LeftIcon = { modifier ->
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_crown),
+                                    contentDescription = "You are the DM here",
+                                    tint = MaterialTheme.colorScheme.secondaryContainer,
+                                    modifier = modifier
+                                )
+                            }, onClick = {})
+                    }
+                    Spacer(Modifier.height(16.dp))
+                }
+
             }
         }
     }
@@ -116,6 +105,9 @@ fun CampaignListScreen(
 @Composable
 fun CampaignListPreview() {
     DMHelperTheme {
-        CampaignListScreen(navController = rememberNavController(), viewModel = CampaignListViewModel())
+        CampaignListScreen(
+            navController = rememberNavController(),
+            viewModel = CampaignListViewModel()
+        )
     }
 }

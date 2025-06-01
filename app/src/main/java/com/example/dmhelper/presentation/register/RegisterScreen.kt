@@ -39,7 +39,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavHostController
 import com.example.booksharing.presentation.components.input.SimpleInput
 import com.example.dmhelper.R
-import com.example.dmhelper.data.user.LoginResponseDTO
+import com.example.dmhelper.data.user.dto.LoginResponseDTO
 import com.example.dmhelper.data.common.Result
 import com.example.dmhelper.navigation.ScreenRoute
 import com.example.dmhelper.presentation.common.FROSTED_GLASS_SHADER
