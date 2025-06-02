@@ -18,4 +18,5 @@ fun getFactors(): Pair<Float, Float> {
 //    val (width, height) = getScreenSizeDp()
 //    return width / 852 to height / 393
     return 1.5f to 2f
+//    return 1f to 1f
 }

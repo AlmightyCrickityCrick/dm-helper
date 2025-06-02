@@ -1,9 +1,7 @@
 package com.example.dmhelper.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
-import androidx.navigation.toRoute
 import com.example.dmhelper.data.campaign.CampaignDTO
 import com.example.dmhelper.presentation.campaign.list.CampaignListScreen
 import com.example.dmhelper.presentation.campaign.main.CampaignMainScreen
@@ -12,6 +10,7 @@ import com.example.dmhelper.presentation.character.list.CharacterListScreen
 import com.example.dmhelper.presentation.home.HomeScreen
 import com.example.dmhelper.presentation.login.LoginScreen
 import com.example.dmhelper.presentation.register.RegisterScreen
+import com.example.dmhelper.presentation.session.list.SessionListScreen
 import kotlinx.serialization.Serializable
 
 object Graph {
@@ -38,6 +37,8 @@ sealed class ScreenRoute(val route: String) {
     data object CampaignListRoute : ScreenRoute("campaign_list")
     @Serializable
     data class CampaignMainRoute(val campaignId: Int, val campaignName: String, val isOwner : Boolean) : ScreenRoute("campaign")
+    @Serializable
+    data class SessionListRoute(val campaignId: Int) : ScreenRoute("sessions")
 
     @Composable
     fun Screen(navController: NavHostController) = when (this) {
@@ -49,8 +50,9 @@ sealed class ScreenRoute(val route: String) {
         CampaignListRoute -> CampaignListScreen(navController = navController)
         CreateCharacterRoute -> CharacterCreateScreen(navController = navController)
         is CampaignMainRoute -> {
-            val campaign: CampaignDTO = CampaignDTO(this.campaignId, this.campaignName, this.isOwner)
+            val campaign = CampaignDTO(this.campaignId, this.campaignName, this.isOwner)
             CampaignMainScreen(navController = navController, campaign = campaign)
         }
+        is SessionListRoute -> SessionListScreen(navController = navController, campaignId = this.campaignId)
     }
 }

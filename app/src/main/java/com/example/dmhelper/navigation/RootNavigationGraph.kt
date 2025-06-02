@@ -21,6 +21,10 @@ fun RootNavigationGraph(navController: NavHostController) {
                 val campaign: ScreenRoute.CampaignMainRoute = backStackEntry.toRoute()
                 campaign.Screen(navController)
             }
+            composable<ScreenRoute.SessionListRoute> { backStackEntry ->
+                val session: ScreenRoute.SessionListRoute = backStackEntry.toRoute()
+                session.Screen(navController)
+            }
         }
     }
 }
