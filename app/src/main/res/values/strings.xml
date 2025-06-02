@@ -7,6 +7,8 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="campaign_name">Campaign Name</string>
     <string name="campaign_code">Campaign Code</string>
+    <string name="session_name">Session name</string>
+    <string name="map_name">Map Name</string>
 
     <!--  Button Strings -->
     <string name="login">Login</string>
@@ -20,5 +22,6 @@
     <string name="navigate_login">No account yet? Register!</string>
     <string name="navigate_register">Already have an account? Login!</string>
     <string name="password_toggle">Password Toggle</string>
+    <string name="code">Code</string>
 
 </resources>

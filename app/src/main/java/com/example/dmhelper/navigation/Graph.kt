@@ -10,6 +10,7 @@ import com.example.dmhelper.presentation.character.list.CharacterListScreen
 import com.example.dmhelper.presentation.home.HomeScreen
 import com.example.dmhelper.presentation.login.LoginScreen
 import com.example.dmhelper.presentation.register.RegisterScreen
+import com.example.dmhelper.presentation.session.create.SessionCreateScreen
 import com.example.dmhelper.presentation.session.list.SessionListScreen
 import kotlinx.serialization.Serializable
 
@@ -39,6 +40,8 @@ sealed class ScreenRoute(val route: String) {
     data class CampaignMainRoute(val campaignId: Int, val campaignName: String, val isOwner : Boolean) : ScreenRoute("campaign")
     @Serializable
     data class SessionListRoute(val campaignId: Int) : ScreenRoute("sessions")
+    @Serializable
+    data class SessionCreateRoute(val campaignId: Int) : ScreenRoute("session/create")
 
     @Composable
     fun Screen(navController: NavHostController) = when (this) {
@@ -54,5 +57,6 @@ sealed class ScreenRoute(val route: String) {
             CampaignMainScreen(navController = navController, campaign = campaign)
         }
         is SessionListRoute -> SessionListScreen(navController = navController, campaignId = this.campaignId)
+        is SessionCreateRoute -> SessionCreateScreen(navController=navController, campaignId = this.campaignId)
     }
 }

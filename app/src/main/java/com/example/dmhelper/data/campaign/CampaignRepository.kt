@@ -16,4 +16,10 @@ class CampaignRepository : KoinComponent {
         campaignList.list.add(CampaignDTO(id, name, true))
         return Result.Success(CreateCampaignResponseDTO(campaignList.list.size))
     }
+
+    fun joinCampaign(campaignDTO: JoinCampaignDTO): Result<JoinCampaignResponseDTO> {
+        val size = campaignList.list.size
+        campaignList.list.add(CampaignDTO(size, "New Campaign", false))
+        return Result.Success(JoinCampaignResponseDTO(size))
+    }
 }

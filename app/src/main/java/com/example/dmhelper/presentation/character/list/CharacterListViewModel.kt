@@ -25,7 +25,7 @@ class CharacterListViewModel(
     fun getCharacterList() {
         viewModelScope.launch {
             val id = userRepository.getId()
-            val result = repository.getAllCharacters(id)
+            val result = repository.getAllUserCharacters(id)
             _characterFormState.update { result }
         }
     }

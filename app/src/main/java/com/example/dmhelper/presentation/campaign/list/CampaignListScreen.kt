@@ -30,13 +30,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.dmhelper.R
 import com.example.dmhelper.data.campaign.toRoute
-import com.example.dmhelper.navigation.ScreenRoute
 import com.example.dmhelper.presentation.common.OrientationPreview
 import com.example.dmhelper.presentation.common.getFactors
 import com.example.dmhelper.presentation.components.board.ItemBoard
 import com.example.dmhelper.presentation.components.board.TopBoard
 import com.example.dmhelper.presentation.components.button.RoundButton
 import com.example.dmhelper.presentation.components.dialog.CreateCampaignDialog
+import com.example.dmhelper.presentation.components.dialog.JoinCampaignDialog
 import com.example.dmhelper.ui.theme.DMHelperTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -48,8 +48,10 @@ fun CampaignListScreen(
 ) {
     val campaignList by viewModel.campaignListState.collectAsStateWithLifecycle()
     viewModel.getCampaignList()
-    val openDialog = remember { mutableStateOf(false) }
+    val openCreateDialog = remember { mutableStateOf(false) }
+    val openJoinDialog = remember { mutableStateOf(false) }
     val campaignForm by viewModel.campaignFormState.collectAsStateWithLifecycle()
+    val joinForm by viewModel.joinFormState.collectAsStateWithLifecycle()
     Scaffold(
         backgroundColor = MaterialTheme.colorScheme.background.copy(alpha = 0f),
         modifier = Modifier
@@ -71,9 +73,9 @@ fun CampaignListScreen(
                         .align(Alignment.BottomStart)
                         .padding(start = 18.dp, end = 18.dp, bottom = 70.dp)
                 ) {
-                    RoundButton(text = "New", onClick = { openDialog.value = true })
+                    RoundButton(text = "New", onClick = { openCreateDialog.value = true })
                     Spacer(Modifier.width(20.dp))
-                    RoundButton(text = "Join", onClick = {})
+                    RoundButton(text = "Join", onClick = { openJoinDialog.value = true})
                 }
             }
             Column(
@@ -104,16 +106,32 @@ fun CampaignListScreen(
 
             }
         }
-        if (openDialog.value) {
+        if (openCreateDialog.value) {
             CreateCampaignDialog(
-                onDismissRequest = { openDialog.value = false },
+                onDismissRequest = { openCreateDialog.value = false },
                 inputState = campaignForm,
                 onInputChanged = { newValue -> viewModel.onCampaignFieldChanged(newValue) },
                 onLeftButtonClicked = {
                     viewModel.createCampaign()
-                    openDialog.value = false
+                    openCreateDialog.value = false
                 },
-                onRightButtonClicked = { openDialog.value = false }
+                onRightButtonClicked = { openCreateDialog.value = false }
+            )
+        }
+
+        if (openJoinDialog.value) {
+            JoinCampaignDialog(
+                onDismissRequest = { openJoinDialog.value = false },
+                inputState = joinForm.codeInputState,
+                onInputChanged = { newValue -> viewModel.onCodeFieldChanged(newValue) },
+                pickerFormState = joinForm.characterPickerState,
+                onItemSelected = {charId -> viewModel.onCharacterSelected(charId)},
+                onLeftButtonClicked = {
+                    viewModel.joinCampaign()
+                    viewModel.getCampaignList()
+                    openJoinDialog.value = false
+                },
+                onRightButtonClicked = { openJoinDialog.value = false }
             )
         }
     }
