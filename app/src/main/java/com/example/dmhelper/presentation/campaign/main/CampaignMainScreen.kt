@@ -11,12 +11,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.dmhelper.R
@@ -27,14 +31,21 @@ import com.example.dmhelper.presentation.common.getFactors
 import com.example.dmhelper.presentation.components.board.BottomBoard
 import com.example.dmhelper.presentation.components.button.RoundButton
 import com.example.dmhelper.presentation.components.button.RoundButtonSizes
+import com.example.dmhelper.presentation.components.dialog.CreateCampaignCodeDialog
 import com.example.dmhelper.ui.theme.DMHelperTheme
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 fun CampaignMainScreen(
     navController: NavHostController,
+    viewModel: CampaignMainViewModel = koinViewModel(),
     campaign: CampaignDTO
 ) {
+    val code by viewModel.codeFormState.collectAsStateWithLifecycle()
+    viewModel.setCampaignId(campaign.id)
+    val openDialog = remember { mutableStateOf(false) }
+
     Scaffold(
         backgroundColor = MaterialTheme.colorScheme.background.copy(alpha = 0f),
         modifier = Modifier
@@ -58,7 +69,7 @@ fun CampaignMainScreen(
             ) {
 
                 RoundButton(
-                    "Create Invite", onClick = { /*navController.navigate(...)*/ },
+                    "Create Invite", onClick = { openDialog.value = true },
                     modifier = Modifier
                         .offset(x = (-290 * wFactor).dp, y = (-30 * wFactor).dp)
                 )
@@ -104,6 +115,14 @@ fun CampaignMainScreen(
                 )
             }
         }
+        if (openDialog.value) {
+            CreateCampaignCodeDialog(
+                code = code,
+                onDismissRequest = { openDialog.value = false },
+                onLeftButtonClicked = { viewModel.getCampaignCode() },
+                onRightButtonClicked = { openDialog.value = false }
+            )
+        }
     }
 }
 
@@ -112,6 +131,6 @@ fun CampaignMainScreen(
 @Composable
 fun PreviewCampaignMainScreen() {
     DMHelperTheme {
-        CampaignMainScreen(rememberNavController(), CampaignDTO(2, "Mighty Nein", true))
+        CampaignMainScreen(rememberNavController(), CampaignMainViewModel(), CampaignDTO(2, "Mighty Nein", true))
     }
 }
