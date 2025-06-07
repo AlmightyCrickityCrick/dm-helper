@@ -113,7 +113,7 @@ fun SessionCreateScreen(
 private fun LeftCreateScreen(sessionForm: SessionCreateFormState, onInputChanged: (newValue: String) -> Unit, onMapChanged: (Uri, String?, File) -> Unit) {
     SimpleInput(
         state = sessionForm.nameFormState,
-        placeholder = R.string.session_name,
+        placeholderInt = R.string.session_name,
         action = {  newValue -> onInputChanged(newValue)})
     Row(
         modifier = Modifier
@@ -123,7 +123,7 @@ private fun LeftCreateScreen(sessionForm: SessionCreateFormState, onInputChanged
     ) {
         SimpleInput(
             state = sessionForm.mapInputState,
-            placeholder = R.string.map_name,
+            placeholderInt = R.string.map_name,
             action = {},
             modifier = Modifier.height(50.dp).weight(4f)
         )

@@ -113,7 +113,7 @@ fun CharacterListScreen(
             CreateCharacterDialog(
                 onDismissRequest = { openDialog.value = false },
                 onLeftButtonClicked = {},
-                onRightButtonClicked = {navController.navigate(ScreenRoute.CharacterListRoute.route)}
+                onRightButtonClicked = {navController.navigate(ScreenRoute.CreateCharacterRoute.route)}
             )
         }
     }

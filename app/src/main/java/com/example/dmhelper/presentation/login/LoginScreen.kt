@@ -134,7 +134,7 @@ private fun LoginForm(
         )
         Spacer(Modifier.height(15.dp).fillMaxHeight(0.4f))
         SimpleInput(
-            action = { newValue -> onUsernameChanged.invoke(newValue) },
+            action = { newValue : String-> onUsernameChanged.invoke(newValue) },
             state = loginFormState.usernameFormState
         )
         Spacer(Modifier.height(6.dp))

@@ -23,5 +23,11 @@
     <string name="navigate_register">Already have an account? Login!</string>
     <string name="password_toggle">Password Toggle</string>
     <string name="code">Code</string>
+    <string name="character_name">Character Name</string>
+    <string name="background">Background</string>
+    <string name="character_alignment">Character Alignment</string>
+    <string name="personality_traits">Personality Traits</string>
+    <string name="ideals">Ideals</string>
+    <string name="character_flaws">Character Flaws</string>
 
 </resources>

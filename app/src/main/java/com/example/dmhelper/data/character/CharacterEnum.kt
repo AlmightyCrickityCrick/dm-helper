@@ -11,7 +11,16 @@ enum class RaceEnum {
     GNOME,
     HALFLING,
     HALF_ORC,
-    TIEFLING
+    ORC,
+    TIEFLING,
+    GITHYANKI,
+    GOBLIN,
+    TABAXI,
+    AASIMAR,
+    CHANGELING,
+    YUANTI,
+    BUGBEAR,
+    COBOL
 }
 
 enum class ClassEnum {

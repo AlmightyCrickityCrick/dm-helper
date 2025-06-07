@@ -11,13 +11,14 @@ import com.example.dmhelper.presentation.components.input.PrimaryInput
 @Composable
 fun SimpleInput(
     action: (String) -> Unit,
-    placeholder : Int = R.string.username,
+    placeholderInt : Int = R.string.username,
+    placeholder: String? = null,
     state: FieldFormUiState,
     modifier: Modifier = Modifier
 ) {
     PrimaryInput(
         initialValue = state.fieldText,
-        placeholder = stringResource(placeholder),
+        placeholder = placeholder ?: stringResource(placeholderInt),
         isError = state.isError,
         onValueChange = { newValue -> action.invoke(newValue) },
         modifier = modifier

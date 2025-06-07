@@ -64,7 +64,7 @@ fun CreateCampaignDialog(
                 )
                 SimpleInput(
                     state= inputState,
-                    placeholder = R.string.campaign_name,
+                    placeholderInt = R.string.campaign_name,
                     action = onInputChanged, modifier = Modifier.padding(horizontal = 20.dp))
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
                     PrimaryButton(

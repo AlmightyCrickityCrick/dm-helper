@@ -142,7 +142,7 @@ private fun RegisterForm(
         Spacer(Modifier.height(6.dp))
         SimpleInput(
             action = { newValue -> onEmailChanged.invoke(newValue) },
-            placeholder = R.string.email,
+            placeholderInt = R.string.email,
             state = registerFormState.emailFormState
         )
         PasswordInput(

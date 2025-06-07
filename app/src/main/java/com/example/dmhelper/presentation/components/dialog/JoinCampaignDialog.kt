@@ -19,9 +19,7 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.booksharing.presentation.components.input.SimpleInput
@@ -72,7 +70,7 @@ fun JoinCampaignDialog(
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
                     SimpleInput(
                         state = inputState,
-                        placeholder = R.string.code,
+                        placeholderInt = R.string.code,
                         action = onInputChanged, modifier = Modifier
                             .padding(horizontal = 20.dp)
                             .weight(0.4f)
