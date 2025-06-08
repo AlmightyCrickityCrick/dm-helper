@@ -71,7 +71,7 @@ fun CharacterCreateScreen(
             .fillMaxWidth()
             .height(LocalConfiguration.current.screenHeightDp.dp)
             .paint(painterResource(R.drawable.bg_wood), contentScale = ContentScale.Crop)
-    ) { innerPadding  ->
+    ) { innerPadding ->
         val (wFactor, hFactor) = getFactors()
         val formState by viewModel.formState.collectAsStateWithLifecycle()
         val mainScroll = rememberScrollState()
@@ -84,8 +84,8 @@ fun CharacterCreateScreen(
                 .verticalScroll(mainScroll)
         ) {
             TopSection(formState, { event -> viewModel.onEvent(event) })
-//            MiddleSection(formState, { event -> viewModel.onEvent(event) }, { ability -> viewModel.getAbilityForm(ability) })
-//            SkillsSection(formState, { event -> viewModel.onEvent(event) })
+            MiddleSection(formState, { event -> viewModel.onEvent(event) }, { ability -> viewModel.getAbilityForm(ability) })
+            SkillsSection(formState, { event -> viewModel.onEvent(event) })
 //            BottomSection(formState, { event -> viewModel.onEvent(event) })
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 PrimaryButton(
@@ -125,8 +125,12 @@ private fun CreateResult(eventChannel: Flow<Result<CreateCharacterResponseDTO>>,
 
 @Composable
 private fun TopSection(formState: CharacterFormState, onEvent: (CharacterCreationEvent) -> Unit) {
-    Row(Modifier.fillMaxWidth().wrapContentHeight()) {
-        Column(Modifier.weight(0.45f).wrapContentHeight()) {
+    Row(Modifier
+        .fillMaxWidth()
+        .wrapContentHeight()) {
+        Column(Modifier
+            .weight(0.45f)
+            .wrapContentHeight()) {
             SimpleInput(
                 state = formState.name,
                 action = { newValue -> onEvent(CharacterCreationEvent.NameChanged(newValue)) },
@@ -144,7 +148,7 @@ private fun TopSection(formState: CharacterFormState, onEvent: (CharacterCreatio
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight()
+                    .height(340.dp)
                     .padding(vertical = 25.dp, horizontal = 12.dp)
                     .border(
                         2.dp, MaterialTheme.colorScheme.onSecondary
@@ -155,7 +159,9 @@ private fun TopSection(formState: CharacterFormState, onEvent: (CharacterCreatio
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(4),
                     verticalArrangement = Arrangement.spacedBy(15.dp),
-                    modifier = Modifier.padding(vertical = 25.dp)
+                    modifier = Modifier
+                        .padding(vertical = 25.dp)
+                        .fillMaxHeight()
                 ) {
                     items(ClassEnum.entries.size) { index ->
                         Icon(
@@ -173,7 +179,9 @@ private fun TopSection(formState: CharacterFormState, onEvent: (CharacterCreatio
             }
         }
         Spacer(Modifier.weight(0.1f))
-        Column(Modifier.weight(0.45f).wrapContentHeight()) {
+        Column(Modifier
+            .weight(0.45f)
+            .wrapContentHeight()) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -182,7 +190,7 @@ private fun TopSection(formState: CharacterFormState, onEvent: (CharacterCreatio
                         2.dp, MaterialTheme.colorScheme.onSecondary
                     )
                     .padding(vertical = 20.dp, horizontal = 12.dp)
-                    .wrapContentHeight()
+                    .height(364.dp)
             ) {
                 Text(text = "Character Race", color = MaterialTheme.colorScheme.onSecondary, style = MaterialTheme.typography.bodyMedium)
                 LazyVerticalGrid(
@@ -222,7 +230,7 @@ private fun MiddleSection(
                 placeholderInt = R.string.character_alignment,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 25.dp)
+                    .padding(bottom = 16.dp)
             )
             SimpleInput(
                 state = formState.personalityTraits,
@@ -230,7 +238,7 @@ private fun MiddleSection(
                 placeholderInt = R.string.personality_traits,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 25.dp)
+                    .padding(bottom = 16.dp)
             )
             SimpleInput(
                 state = formState.ideals,
@@ -238,7 +246,7 @@ private fun MiddleSection(
                 placeholderInt = R.string.ideals,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 25.dp)
+                    .padding(bottom = 16.dp)
             )
             SimpleInput(
                 state = formState.flaws,
@@ -246,7 +254,7 @@ private fun MiddleSection(
                 placeholderInt = R.string.character_flaws,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 25.dp)
+                    .padding(bottom = 16.dp)
             )
         }
         Spacer(Modifier.weight(0.1f))
@@ -258,13 +266,19 @@ private fun MiddleSection(
                     .border(
                         2.dp, MaterialTheme.colorScheme.onSecondary
                     )
+                    .height(290.dp)
                     .padding(vertical = 20.dp, horizontal = 12.dp)
             ) {
-                Text(text = "Abilities", color = MaterialTheme.colorScheme.onSecondary, style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    text = "Abilities",
+                    color = MaterialTheme.colorScheme.onSecondary,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(bottom = 20.dp)
+                )
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(3),
-                    verticalArrangement = Arrangement.spacedBy(6.dp),
-                    modifier = Modifier.padding(vertical = 15.dp)
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.padding(vertical = 16.dp, horizontal = 10.dp)
                 ) {
                     items(AbilityType.entries.size) { index ->
                         val ability = AbilityType.entries[index]
@@ -294,19 +308,24 @@ private fun MiddleSection(
 
 @Composable
 private fun SkillsSection(formState: CharacterFormState, onEvent: (CharacterCreationEvent) -> Unit) {
-    Text(text = "Skills", color = MaterialTheme.colorScheme.onSecondary, style = MaterialTheme.typography.bodyLarge)
+    Text(
+        text = "Skills",
+        color = MaterialTheme.colorScheme.onSecondary,
+        style = MaterialTheme.typography.bodyLarge,
+        modifier = Modifier.padding(start=20.dp, bottom=12.dp))
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 25.dp, horizontal = 12.dp)
+            .padding(vertical = 15.dp, horizontal = 12.dp)
             .border(
                 2.dp, MaterialTheme.colorScheme.onSecondary
             )
             .padding(vertical = 20.dp, horizontal = 12.dp)
+            .height(350.dp)
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(5),
-            verticalArrangement = Arrangement.spacedBy(15.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp),
             modifier = Modifier.padding(vertical = 25.dp)
         ) {
             items(Skill.entries.size) { index ->
@@ -332,7 +351,7 @@ private fun SkillsSection(formState: CharacterFormState, onEvent: (CharacterCrea
                         placeholder = Skill.entries[index].name,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 25.dp)
+                            .padding(bottom =10.dp)
                     )
                 }
             }
