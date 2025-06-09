@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class RegisterViewModel(private val repository: UserRepository = UserRepositoryImpl()) : ViewModel() {
+class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
 
     private val _registerFormState = MutableStateFlow(
         RegisterFormState(

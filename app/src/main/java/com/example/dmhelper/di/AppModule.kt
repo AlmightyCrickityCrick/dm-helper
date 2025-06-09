@@ -1,5 +1,11 @@
 package com.example.dmhelper.di
 
+import com.example.dmhelper.data.campaign.CampaignRepository
+import com.example.dmhelper.data.character.CharacterRepository
+import com.example.dmhelper.data.common.ApiService
+import com.example.dmhelper.data.session.SessionRepository
+import com.example.dmhelper.data.user.UserRepository
+import com.example.dmhelper.data.user.UserRepositoryImpl
 import com.example.dmhelper.presentation.campaign.list.CampaignListViewModel
 import com.example.dmhelper.presentation.campaign.main.CampaignMainViewModel
 import com.example.dmhelper.presentation.character.create.CharacterCreateViewModel
@@ -11,15 +17,47 @@ import com.example.dmhelper.presentation.session.create.SessionCreateViewModel
 import com.example.dmhelper.presentation.session.list.SessionListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.jvm.java
 
 val appModule = module {
-    viewModel { LoginViewModel() }
-    viewModel { RegisterViewModel() }
-    viewModel { HomeViewModel() }
-    viewModel { CampaignListViewModel() }
-    viewModel { CharacterListViewModel() }
-    viewModel { CharacterCreateViewModel() }
-    viewModel { SessionListViewModel() }
-    viewModel { SessionCreateViewModel() }
-    viewModel { CampaignMainViewModel() }
+    viewModel { LoginViewModel(get()) }
+    viewModel { RegisterViewModel(get()) }
+    viewModel { HomeViewModel(get()) }
+    viewModel { CampaignListViewModel(
+        get(),
+        userRepository = get(),
+        charRepository = get()
+    ) }
+    viewModel { CharacterListViewModel(
+        get(),
+        userRepository = get()
+    ) }
+    viewModel { CharacterCreateViewModel(
+        get(),
+        userRepository = get()
+    ) }
+    viewModel { SessionListViewModel(
+        get(),
+        userRepository = get()
+    ) }
+    viewModel { SessionCreateViewModel(
+        get(),
+        characterRepository = get()
+    ) }
+    viewModel { CampaignMainViewModel(get()) }
+
+    single {
+        Retrofit.Builder()
+            .baseUrl("https://your.api.url/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+    single { get<Retrofit>().create(ApiService::class.java) }
+    single { CharacterRepository(get()) }
+    single { CampaignRepository(get()) }
+    single { SessionRepository(get()) }
+    single <UserRepository>{ UserRepositoryImpl(get()) }
+
 }

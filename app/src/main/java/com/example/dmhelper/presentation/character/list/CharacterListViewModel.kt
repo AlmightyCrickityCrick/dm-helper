@@ -13,8 +13,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CharacterListViewModel(
-    private val repository: CharacterRepository = CharacterRepository(),
-    private val userRepository : UserRepository = UserRepositoryImpl()
+    private val repository: CharacterRepository,
+    private val userRepository : UserRepository
 ) :
     ViewModel() {
     private val _characterFormState = MutableStateFlow(

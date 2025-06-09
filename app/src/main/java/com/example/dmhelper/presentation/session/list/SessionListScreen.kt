@@ -93,15 +93,15 @@ fun SessionListScreen(
 }
 
 
-@SuppressLint("ViewModelConstructorInComposable")
-@OrientationPreview
-@Composable
-fun SessionListPreview() {
-    DMHelperTheme {
-        SessionListScreen(
-            viewModel = SessionListViewModel(),
-            navController = rememberNavController(),
-            campaignId = 2
-        )
-    }
-}
+//@SuppressLint("ViewModelConstructorInComposable")
+//@OrientationPreview
+//@Composable
+//fun SessionListPreview() {
+//    DMHelperTheme {
+//        SessionListScreen(
+//            viewModel = SessionListViewModel(),
+//            navController = rememberNavController(),
+//            campaignId = 2
+//        )
+//    }
+//}

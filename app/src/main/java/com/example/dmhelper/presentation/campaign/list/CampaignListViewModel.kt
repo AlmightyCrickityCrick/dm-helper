@@ -19,9 +19,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CampaignListViewModel(
-    private val repository: CampaignRepository = CampaignRepository(),
-    private val userRepository: UserRepository = UserRepositoryImpl(),
-    private val charRepository: CharacterRepository = CharacterRepository()
+    private val repository: CampaignRepository,
+    private val userRepository: UserRepository,
+    private val charRepository: CharacterRepository
 ) :
     ViewModel() {
     private val _campaignFormState = MutableStateFlow(FieldFormUiState())

@@ -29,7 +29,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.dmhelper.R
+import com.example.dmhelper.data.campaign.CampaignRepository
 import com.example.dmhelper.data.campaign.toRoute
+import com.example.dmhelper.data.common.ApiService
 import com.example.dmhelper.presentation.common.OrientationPreview
 import com.example.dmhelper.presentation.common.getFactors
 import com.example.dmhelper.presentation.components.board.ItemBoard
@@ -137,14 +139,14 @@ fun CampaignListScreen(
     }
 }
 
-@SuppressLint("ViewModelConstructorInComposable")
-@OrientationPreview
-@Composable
-fun CampaignListPreview() {
-    DMHelperTheme {
-        CampaignListScreen(
-            navController = rememberNavController(),
-            viewModel = CampaignListViewModel()
-        )
-    }
-}
+//@SuppressLint("ViewModelConstructorInComposable")
+//@OrientationPreview
+//@Composable
+//fun CampaignListPreview() {
+//    DMHelperTheme {
+//        CampaignListScreen(
+//            navController = rememberNavController(),
+//            viewModel = CampaignListViewModel()
+//        )
+//    }
+//}

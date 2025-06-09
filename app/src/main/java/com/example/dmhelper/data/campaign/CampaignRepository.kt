@@ -1,12 +1,13 @@
 package com.example.dmhelper.data.campaign
 
 import androidx.compose.ui.util.trace
+import com.example.dmhelper.data.common.ApiService
 import com.example.dmhelper.data.common.Result
 import com.example.dmhelper.data.common.Util
 import org.koin.core.component.KoinComponent
 import kotlin.random.Random
 
-class CampaignRepository : KoinComponent {
+class CampaignRepository (private val api: ApiService) {
     private val campaignList = Util.mockCampaignList
 
     suspend fun getListCampaigns(id: Int): CampaignListDTO {

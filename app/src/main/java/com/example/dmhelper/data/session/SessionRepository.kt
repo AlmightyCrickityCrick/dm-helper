@@ -1,11 +1,12 @@
 package com.example.dmhelper.data.session
 
 import android.net.Uri
+import com.example.dmhelper.data.common.ApiService
 import com.example.dmhelper.data.common.Result
 import com.example.dmhelper.data.common.Util
 import java.io.File
 
-class SessionRepository {
+class SessionRepository(private val api: ApiService) {
     private val sessionList = Util.mockSessions
 
     suspend fun getSessions(userId: Int, campaignId: Int): SessionListDTO {

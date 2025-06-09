@@ -87,34 +87,34 @@ fun RegisterScreen(
     }
 }
 
-@SuppressLint("ViewModelConstructorInComposable", "UnusedMaterial3ScaffoldPaddingParameter")
-@Composable
-private fun RegisterScreenContent() {
-    val viewModel = RegisterViewModel()
-    val registerFormState by viewModel.registerFormState.collectAsStateWithLifecycle()
-    Scaffold(
-        containerColor = Color.Transparent,
-        modifier = Modifier
-            .fillMaxSize()
-            .paint(painterResource(R.drawable.bg_login), contentScale = ContentScale.Crop)
-            .padding(horizontal = 16.dp)
-            .imePadding()
-    ) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            BlurryCard(modifier = Modifier) {
-                RegisterForm(
-                    registerFormState = registerFormState,
-                    onUsernameChanged = { newValue -> viewModel.onUsernameChanged(newValue) },
-                    onPasswordChanged = { newValue -> viewModel.onPasswordChanged(newValue) },
-                    onEmailChanged = {newValue -> viewModel.onEmailChanged(newValue)},
-                    buttonState = registerFormState.isDataValid,
-                    onButtonPressed = { viewModel.register() },
-                    onNoAccount = {}
-                )
-            }
-        }
-    }
-}
+//@SuppressLint("ViewModelConstructorInComposable", "UnusedMaterial3ScaffoldPaddingParameter")
+//@Composable
+//private fun RegisterScreenContent() {
+//    val viewModel = RegisterViewModel()
+//    val registerFormState by viewModel.registerFormState.collectAsStateWithLifecycle()
+//    Scaffold(
+//        containerColor = Color.Transparent,
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .paint(painterResource(R.drawable.bg_login), contentScale = ContentScale.Crop)
+//            .padding(horizontal = 16.dp)
+//            .imePadding()
+//    ) {
+//        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+//            BlurryCard(modifier = Modifier) {
+//                RegisterForm(
+//                    registerFormState = registerFormState,
+//                    onUsernameChanged = { newValue -> viewModel.onUsernameChanged(newValue) },
+//                    onPasswordChanged = { newValue -> viewModel.onPasswordChanged(newValue) },
+//                    onEmailChanged = {newValue -> viewModel.onEmailChanged(newValue)},
+//                    buttonState = registerFormState.isDataValid,
+//                    onButtonPressed = { viewModel.register() },
+//                    onNoAccount = {}
+//                )
+//            }
+//        }
+//    }
+//}
 
 
 @Composable
@@ -208,10 +208,10 @@ private fun RegisterResult(
     }
 }
 
-@OrientationPreview
-@Composable
-fun RegisterScreenPreviewTablet() {
-    DMHelperTheme {
-        RegisterScreenContent()
-    }
-}
+//@OrientationPreview
+//@Composable
+//fun RegisterScreenPreviewTablet() {
+//    DMHelperTheme {
+//        RegisterScreenContent()
+//    }
+//}

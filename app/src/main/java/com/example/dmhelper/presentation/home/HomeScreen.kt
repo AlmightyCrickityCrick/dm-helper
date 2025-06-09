@@ -68,11 +68,11 @@ fun HomeScreen(navController: NavHostController,
     }
 }
 
-@SuppressLint("ViewModelConstructorInComposable")
-@OrientationPreview
-@Composable
-fun HomePreview() {
-    DMHelperTheme {
-        HomeScreen(rememberNavController(), HomeViewModel())
-    }
-}
+//@SuppressLint("ViewModelConstructorInComposable")
+//@OrientationPreview
+//@Composable
+//fun HomePreview() {
+//    DMHelperTheme {
+//        HomeScreen(rememberNavController(), HomeViewModel())
+//    }
+//}

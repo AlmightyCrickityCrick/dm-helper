@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.dmhelper.data.user.UserRepository
 import com.example.dmhelper.data.user.UserRepositoryImpl
 
-class HomeViewModel(private val repository: UserRepository = UserRepositoryImpl()) : ViewModel(){
+class HomeViewModel(private val repository: UserRepository) : ViewModel(){
 
     fun getUsername() :String{
         return "Mollymauk"

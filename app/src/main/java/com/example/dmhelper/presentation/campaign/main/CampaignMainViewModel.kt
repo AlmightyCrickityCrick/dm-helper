@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CampaignMainViewModel(
-    private val repository: CampaignRepository = CampaignRepository()
+    private val repository: CampaignRepository
 ) : ViewModel() {
     private val _codeFormState = MutableStateFlow(
         FieldFormUiState()

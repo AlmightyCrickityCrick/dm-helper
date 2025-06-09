@@ -67,4 +67,8 @@ dependencies {
     //Di
     implementation(libs.koin.androidx.compose)
     implementation(libs.kotlinx.serialization.json)
+
+    //retofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
 }

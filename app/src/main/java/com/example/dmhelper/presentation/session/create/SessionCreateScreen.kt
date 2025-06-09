@@ -188,11 +188,11 @@ private fun SessionCreateResult(
 }
 
 
-@SuppressLint("ViewModelConstructorInComposable")
-@OrientationPreview
-@Composable
-fun PreviewSessionCreateScreen() {
-    DMHelperTheme {
-        SessionCreateScreen(rememberNavController(), SessionCreateViewModel(), 2)
-    }
-}
+//@SuppressLint("ViewModelConstructorInComposable")
+//@OrientationPreview
+//@Composable
+//fun PreviewSessionCreateScreen() {
+//    DMHelperTheme {
+//        SessionCreateScreen(rememberNavController(), SessionCreateViewModel(), 2)
+//    }
+//}

@@ -126,11 +126,11 @@ fun CampaignMainScreen(
     }
 }
 
-@SuppressLint("ViewModelConstructorInComposable")
-@OrientationPreview
-@Composable
-fun PreviewCampaignMainScreen() {
-    DMHelperTheme {
-        CampaignMainScreen(rememberNavController(), CampaignMainViewModel(), CampaignDTO(2, "Mighty Nein", true))
-    }
-}
+//@SuppressLint("ViewModelConstructorInComposable")
+//@OrientationPreview
+//@Composable
+//fun PreviewCampaignMainScreen() {
+//    DMHelperTheme {
+//        CampaignMainScreen(rememberNavController(), CampaignMainViewModel(), CampaignDTO(2, "Mighty Nein", true))
+//    }
+//}

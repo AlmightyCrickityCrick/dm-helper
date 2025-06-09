@@ -13,8 +13,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SessionListViewModel(
-    private val repository: SessionRepository = SessionRepository(),
-    private val userRepository : UserRepository = UserRepositoryImpl()
+    private val repository: SessionRepository,
+    private val userRepository : UserRepository
 ) :
     ViewModel() {
     private val _sessionFormState = MutableStateFlow(

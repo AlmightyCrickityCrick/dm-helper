@@ -122,29 +122,29 @@ fun CharacterListScreen(
 
 fun getResource(charClassEnum: ClassEnum?) = when (charClassEnum) {
     ROGUE -> R.drawable.ic_crown
-    BARD -> R.drawable.ic_rogue
-    WARLOCK -> R.drawable.ic_rogue
-    RANGER -> R.drawable.ic_rogue
-    MONK -> R.drawable.ic_rogue
-    PALADIN -> R.drawable.ic_rogue
-    BARBARIAN -> R.drawable.ic_rogue
-    SORCERER -> R.drawable.ic_rogue
-    DRUID -> R.drawable.ic_rogue
-    CLERIC -> R.drawable.ic_rogue
-    WIZARD -> R.drawable.ic_rogue
-    FIGHTER -> R.drawable.ic_rogue
+    BARD -> R.drawable.ic_crown
+    WARLOCK -> R.drawable.ic_crown
+    RANGER -> R.drawable.ic_crown
+    MONK -> R.drawable.ic_crown
+    PALADIN -> R.drawable.ic_crown
+    BARBARIAN -> R.drawable.ic_crown
+    SORCERER -> R.drawable.ic_crown
+    DRUID -> R.drawable.ic_crown
+    CLERIC -> R.drawable.ic_crown
+    WIZARD -> R.drawable.ic_crown
+    FIGHTER -> R.drawable.ic_crown
     null -> R.drawable.ic_crown
 }
 
 
-@SuppressLint("ViewModelConstructorInComposable")
-@OrientationPreview
-@Composable
-fun CharacterListPreview() {
-    DMHelperTheme {
-        CharacterListScreen(
-            viewModel = CharacterListViewModel(),
-            navController = rememberNavController()
-        )
-    }
-}
+//@SuppressLint("ViewModelConstructorInComposable")
+//@OrientationPreview
+//@Composable
+//fun CharacterListPreview() {
+//    DMHelperTheme {
+//        CharacterListScreen(
+//            viewModel = CharacterListViewModel(),
+//            navController = rememberNavController()
+//        )
+//    }
+//}

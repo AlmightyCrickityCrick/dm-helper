@@ -84,7 +84,7 @@ fun CharacterCreateScreen(
                 .verticalScroll(mainScroll)
         ) {
             TopSection(formState, { event -> viewModel.onEvent(event) })
-            MiddleSection(formState, { event -> viewModel.onEvent(event) }, { ability -> viewModel.getAbilityForm(ability) })
+            MiddleSection(formState, { event -> viewModel.onEvent(event) })
             SkillsSection(formState, { event -> viewModel.onEvent(event) })
 //            BottomSection(formState, { event -> viewModel.onEvent(event) })
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -108,7 +108,7 @@ fun CharacterCreateScreen(
         }
         CreateResult(
             eventChannel = viewModel.eventChannel,
-            onCreateSuccess = { navController.navigate(navController.popBackStack()) }
+            onCreateSuccess = { navController.popBackStack() }
         )
     }
 }
@@ -220,7 +220,6 @@ private fun TopSection(formState: CharacterFormState, onEvent: (CharacterCreatio
 private fun MiddleSection(
     formState: CharacterFormState,
     onEvent: (CharacterCreationEvent) -> Unit,
-    getAbilityForm: (AbilityType) -> FieldFormUiState
 ) {
     Row(Modifier.fillMaxWidth()) {
         Column(Modifier.weight(0.45f)) {
@@ -282,6 +281,14 @@ private fun MiddleSection(
                 ) {
                     items(AbilityType.entries.size) { index ->
                         val ability = AbilityType.entries[index]
+                        val state = when(ability) {
+                            AbilityType.STRENGTH -> formState.abilities.strength
+                            AbilityType.DEXTERITY -> formState.abilities.dexterity
+                            AbilityType.CONSTITUTION -> formState.abilities.constitution
+                            AbilityType.INTELLIGENCE -> formState.abilities.intelligence
+                            AbilityType.WISDOM -> formState.abilities.wisdom
+                            AbilityType.CHARISMA -> formState.abilities.charisma
+                        }
                         Row(Modifier.fillMaxWidth()) {
                             Icon(
                                 painter = painterResource(R.drawable.ic_crown),
@@ -291,8 +298,8 @@ private fun MiddleSection(
                                     .size(46.dp)
                             )
                             SimpleInput(
-                                state = getAbilityForm(ability),
-                                action = { newValue -> onEvent(CharacterCreationEvent.AbilityChanged(ability, newValue.toInt())) },
+                                state = state,
+                                action = { newValue -> onEvent(CharacterCreationEvent.AbilityChanged(ability, newValue)) },
                                 placeholder = ability.name.substring(0, 3),
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -377,7 +384,7 @@ fun PreviewTopSection() {
 @Composable
 fun PreviewMiddleSection() {
     DMHelperTheme {
-        MiddleSection(CharacterFormState(), {}, { FieldFormUiState() })
+        MiddleSection(CharacterFormState(), {}, )
     }
 }
 
@@ -398,11 +405,11 @@ fun PreviewBottomSection() {
 }
 
 
-@SuppressLint("ViewModelConstructorInComposable")
-@OrientationPreview
-@Composable
-fun PreviewCharacterCreateScreen() {
-    DMHelperTheme {
-        CharacterCreateScreen(rememberNavController(), CharacterCreateViewModel())
-    }
-}
+//@SuppressLint("ViewModelConstructorInComposable")
+//@OrientationPreview
+//@Composable
+//fun PreviewCharacterCreateScreen() {
+//    DMHelperTheme {
+//        CharacterCreateScreen(rememberNavController(), CharacterCreateViewModel())
+//    }
+//}

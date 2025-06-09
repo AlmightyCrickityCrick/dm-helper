@@ -22,8 +22,8 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 class SessionCreateViewModel(
-    private val repository: SessionRepository = SessionRepository(),
-    private val characterRepository: CharacterRepository = CharacterRepository(),
+    private val repository: SessionRepository,
+    private val characterRepository: CharacterRepository,
 ) : ViewModel() {
     private val _sessionFormState = MutableStateFlow(
         SessionCreateFormState(

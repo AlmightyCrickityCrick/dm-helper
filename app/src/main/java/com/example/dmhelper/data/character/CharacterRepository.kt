@@ -1,9 +1,10 @@
 package com.example.dmhelper.data.character
 
+import com.example.dmhelper.data.common.ApiService
 import com.example.dmhelper.data.common.Result
 import com.example.dmhelper.data.common.Util
 
-class CharacterRepository {
+class CharacterRepository(private val api: ApiService) {
     var characters : ArrayList<CharacterShortDTO>
 
     init {

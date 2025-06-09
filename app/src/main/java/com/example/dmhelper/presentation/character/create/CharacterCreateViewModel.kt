@@ -23,8 +23,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CharacterCreateViewModel(
-    val repository: CharacterRepository = CharacterRepository(),
-    val userRepository: UserRepository = UserRepositoryImpl()
+    val repository: CharacterRepository,
+    val userRepository: UserRepository
 ) : ViewModel() {
     private val _formState = MutableStateFlow(CharacterFormState())
     val formState: StateFlow<CharacterFormState> = _formState
@@ -54,7 +54,7 @@ class CharacterCreateViewModel(
         }
     }
 
-    fun createCharacter(){
+    fun createCharacter() {
         viewModelScope.launch {
             val id = userRepository.getId()
             val result = repository.createCharacter(toCharacterDto(), id)
@@ -70,21 +70,21 @@ class CharacterCreateViewModel(
         _formState.update { it.copy(background = it.background.copy(background)) }
     }
 
-    private fun onHPChanged(hp: Int) {
-        _formState.update { it.copy(hp = hp) }
+    private fun onHPChanged(hp: String) {
+        _formState.update { it.copy(hp = hp.toIntOrNull() ?: 0) }
     }
 
-    private fun onLevelChanged(level: Int) {
+    private fun onLevelChanged(level: String) {
         _formState.update {
             it.copy(
-                level = level,
-                proficiencyBonus = calculateProficiencyBonus(level)
+                level = level.toIntOrNull() ?: 0,
+                proficiencyBonus = calculateProficiencyBonus(level.toIntOrNull() ?: 0)
             )
         }
     }
 
-    private fun onExpChanged(exp: Int) {
-        _formState.update { it.copy(exp = exp) }
+    private fun onExpChanged(exp: String) {
+        _formState.update { it.copy(exp = exp.toIntOrNull()?:0) }
     }
 
     private fun onClassChanged(characterClass: ClassEnum) {
@@ -111,7 +111,7 @@ class CharacterCreateViewModel(
         _formState.update { it.copy(flaws = it.flaws.copy(flaws)) }
     }
 
-    private fun onAbilityChanged(type: AbilityType, score: Int) {
+    private fun onAbilityChanged(type: AbilityType, score: String) {
         _formState.update {
             val updatedAbilities = when (type) {
                 AbilityType.STRENGTH -> it.abilities.copy(strength = it.abilities.strength.copy(score.toString()))
@@ -123,15 +123,6 @@ class CharacterCreateViewModel(
             }
             it.copy(abilities = updatedAbilities)
         }
-    }
-
-    fun getAbilityForm(type: AbilityType) = when (type) {
-        AbilityType.STRENGTH -> formState.value.abilities.strength
-        AbilityType.DEXTERITY -> formState.value.abilities.dexterity
-        AbilityType.CONSTITUTION -> formState.value.abilities.constitution
-        AbilityType.INTELLIGENCE -> formState.value.abilities.intelligence
-        AbilityType.WISDOM -> formState.value.abilities.wisdom
-        AbilityType.CHARISMA -> formState.value.abilities.charisma
     }
 
     fun onSkillProficiencyChanged(skill: Skill) {
@@ -174,7 +165,7 @@ class CharacterCreateViewModel(
 
     fun toCharacterDto(): CharacterDTO {
         val state = formState.value
-        val charClass = state.selectedClass?: ClassEnum.BARBARIAN
+        val charClass = state.selectedClass ?: ClassEnum.BARBARIAN
         val race = state.selectedRace ?: RaceEnum.HUMAN
 
         val skills = state.skillProficiencies.map { (skill, level) ->

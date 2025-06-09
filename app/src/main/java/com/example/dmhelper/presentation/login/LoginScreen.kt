@@ -83,34 +83,34 @@ fun LoginScreen(
         }
     }
 }
-
-@SuppressLint("ViewModelConstructorInComposable", "UnusedMaterial3ScaffoldPaddingParameter")
-@Composable
-private fun LoginScreenContent() {
-    val viewModel = LoginViewModel()
-    val loginFormState by viewModel.loginFormState.collectAsStateWithLifecycle()
-    Scaffold(
-        containerColor = Color.Transparent,
-        modifier = Modifier
-            .fillMaxSize()
-            .paint(painterResource(R.drawable.bg_login), contentScale = ContentScale.Crop)
-            .padding(horizontal = 16.dp)
-            .imePadding()
-    ) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            BlurryCard(modifier = Modifier) {
-                LoginForm(
-                    loginFormState = loginFormState,
-                    onUsernameChanged = { newValue -> viewModel.onUsernameChanged(newValue) },
-                    onPasswordChanged = { newValue -> viewModel.onPasswordChanged(newValue) },
-                    buttonState = loginFormState.isDataValid,
-                    onButtonPressed = { viewModel.login() },
-                    onNoAccount = {}
-                )
-            }
-        }
-    }
-}
+//
+//@SuppressLint("ViewModelConstructorInComposable", "UnusedMaterial3ScaffoldPaddingParameter")
+//@Composable
+//private fun LoginScreenContent() {
+//    val viewModel = LoginViewModel()
+//    val loginFormState by viewModel.loginFormState.collectAsStateWithLifecycle()
+//    Scaffold(
+//        containerColor = Color.Transparent,
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .paint(painterResource(R.drawable.bg_login), contentScale = ContentScale.Crop)
+//            .padding(horizontal = 16.dp)
+//            .imePadding()
+//    ) {
+//        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+//            BlurryCard(modifier = Modifier) {
+//                LoginForm(
+//                    loginFormState = loginFormState,
+//                    onUsernameChanged = { newValue -> viewModel.onUsernameChanged(newValue) },
+//                    onPasswordChanged = { newValue -> viewModel.onPasswordChanged(newValue) },
+//                    buttonState = loginFormState.isDataValid,
+//                    onButtonPressed = { viewModel.login() },
+//                    onNoAccount = {}
+//                )
+//            }
+//        }
+//    }
+//}
 
 
 @Composable
@@ -199,10 +199,10 @@ private fun LoginResult(
     }
 }
 
-@OrientationPreview
-@Composable
-fun LoginScreenPreviewTablet() {
-    DMHelperTheme {
-        LoginScreenContent()
-    }
-}
+//@OrientationPreview
+//@Composable
+//fun LoginScreenPreviewTablet() {
+//    DMHelperTheme {
+//        LoginScreenContent()
+//    }
+//}
