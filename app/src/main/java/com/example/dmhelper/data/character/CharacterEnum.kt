@@ -8,19 +8,16 @@ enum class RaceEnum {
     HALF_ELF,
     DWARF,
     DRAGONBORN,
+    DROW,
     GNOME,
     HALFLING,
     HALF_ORC,
-    ORC,
     TIEFLING,
     GITHYANKI,
-    GOBLIN,
-    TABAXI,
-    AASIMAR,
-    CHANGELING,
     YUANTI,
-    BUGBEAR,
-    COBOL
+    FIRBOLG,
+    GENASI,
+    TRITON
 }
 
 enum class ClassEnum {

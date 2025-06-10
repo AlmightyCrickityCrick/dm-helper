@@ -52,6 +52,7 @@ import com.example.dmhelper.data.common.Result
 import com.example.dmhelper.presentation.common.FieldFormUiState
 import com.example.dmhelper.presentation.common.OrientationPreview
 import com.example.dmhelper.presentation.common.getFactors
+import com.example.dmhelper.presentation.common.getResource
 import com.example.dmhelper.presentation.components.button.PrimaryButton
 import com.example.dmhelper.ui.theme.DMHelperTheme
 import kotlinx.coroutines.flow.Flow
@@ -164,14 +165,15 @@ private fun TopSection(formState: CharacterFormState, onEvent: (CharacterCreatio
                         .fillMaxHeight()
                 ) {
                     items(ClassEnum.entries.size) { index ->
+                        val charClass = ClassEnum.entries[index]
                         Icon(
-                            painter = painterResource(R.drawable.ic_crown),
+                            painter = painterResource(getResource(charClass)),
                             tint = if (formState.selectedClass?.ordinal == index) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.secondaryContainer,
                             contentDescription = "Class Icon",
                             modifier = Modifier
                                 .size(46.dp)
                                 .clickable(onClick = {
-                                    onEvent(CharacterCreationEvent.ClassChanged(index.toEnumOrNull<ClassEnum>() ?: ClassEnum.BARBARIAN))
+                                    onEvent(CharacterCreationEvent.ClassChanged(charClass))
                                 })
                         )
                     }
@@ -199,14 +201,15 @@ private fun TopSection(formState: CharacterFormState, onEvent: (CharacterCreatio
                     modifier = Modifier.padding(vertical = 25.dp)
                 ) {
                     items(RaceEnum.entries.size) { index ->
+                        val race = RaceEnum.entries[index]
                         Icon(
-                            painter = painterResource(R.drawable.ic_crown),
+                            painter = painterResource(getResource(race)),
                             tint = if (formState.selectedRace?.ordinal == index) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.secondaryContainer,
                             contentDescription = "Race Icon",
                             modifier = Modifier
                                 .size(46.dp)
                                 .clickable(onClick = {
-                                    onEvent(CharacterCreationEvent.RaceChanged(index.toEnumOrNull<RaceEnum>() ?: RaceEnum.HUMAN))
+                                    onEvent(CharacterCreationEvent.RaceChanged(race))
                                 })
                         )
                     }

@@ -1,5 +1,6 @@
 package com.example.dmhelper.presentation.character.list
 
+import android.R.attr.text
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,8 +23,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -47,6 +51,7 @@ import com.example.dmhelper.data.character.toEnumOrNull
 import com.example.dmhelper.navigation.ScreenRoute
 import com.example.dmhelper.presentation.common.OrientationPreview
 import com.example.dmhelper.presentation.common.getFactors
+import com.example.dmhelper.presentation.common.getResource
 import com.example.dmhelper.presentation.components.board.ItemBoard
 import com.example.dmhelper.presentation.components.board.TopBoard
 import com.example.dmhelper.presentation.components.button.AddButton
@@ -91,7 +96,7 @@ fun CharacterListScreen(
                 for (char in characterList.character) {
                     val classEnum = char.classId.toEnumOrNull<ClassEnum>()
                     val raceEnum = char.raceId.toEnumOrNull<RaceEnum>()
-                    val painter = painterResource(getResource(classEnum))
+                    val painter = rememberVectorPainter(image = ImageVector.vectorResource(getResource(classEnum)))
                     ItemBoard(
                         text = char.name,
                         LeftIcon = { modifier ->
@@ -117,23 +122,6 @@ fun CharacterListScreen(
             )
         }
     }
-}
-
-
-fun getResource(charClassEnum: ClassEnum?) = when (charClassEnum) {
-    ROGUE -> R.drawable.ic_crown
-    BARD -> R.drawable.ic_crown
-    WARLOCK -> R.drawable.ic_crown
-    RANGER -> R.drawable.ic_crown
-    MONK -> R.drawable.ic_crown
-    PALADIN -> R.drawable.ic_crown
-    BARBARIAN -> R.drawable.ic_crown
-    SORCERER -> R.drawable.ic_crown
-    DRUID -> R.drawable.ic_crown
-    CLERIC -> R.drawable.ic_crown
-    WIZARD -> R.drawable.ic_crown
-    FIGHTER -> R.drawable.ic_crown
-    null -> R.drawable.ic_crown
 }
 
 
