@@ -294,7 +294,7 @@ private fun MiddleSection(
                         }
                         Row(Modifier.fillMaxWidth()) {
                             Icon(
-                                painter = painterResource(R.drawable.ic_crown),
+                                painter = painterResource(getResource(ability)),
                                 tint = MaterialTheme.colorScheme.onSecondary,
                                 contentDescription = "Ability Icon",
                                 modifier = Modifier
@@ -331,7 +331,7 @@ private fun SkillsSection(formState: CharacterFormState, onEvent: (CharacterCrea
                 2.dp, MaterialTheme.colorScheme.onSecondary
             )
             .padding(vertical = 20.dp, horizontal = 12.dp)
-            .height(350.dp)
+            .height(356.dp)
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(5),

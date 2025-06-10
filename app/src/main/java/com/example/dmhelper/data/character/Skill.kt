@@ -2,7 +2,7 @@ package com.example.dmhelper.data.character
 
 enum class Skill(val ability: AbilityType) {
     ACROBATICS(AbilityType.DEXTERITY),
-    ANIMAL_HANDLING(AbilityType.WISDOM),
+    ANIMAL_HANDLE(AbilityType.WISDOM),
     ARCANA(AbilityType.INTELLIGENCE),
     ATHLETICS(AbilityType.STRENGTH),
     DECEPTION(AbilityType.CHARISMA),
@@ -16,7 +16,7 @@ enum class Skill(val ability: AbilityType) {
     PERFORMANCE(AbilityType.CHARISMA),
     PERSUASION(AbilityType.CHARISMA),
     RELIGION(AbilityType.INTELLIGENCE),
-    SLEIGHT_OF_HAND(AbilityType.DEXTERITY),
+    SLEIGHT_HAND(AbilityType.DEXTERITY),
     STEALTH(AbilityType.DEXTERITY),
     SURVIVAL(AbilityType.WISDOM)
 }

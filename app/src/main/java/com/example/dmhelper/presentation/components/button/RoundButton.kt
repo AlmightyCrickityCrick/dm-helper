@@ -1,13 +1,16 @@
 package com.example.dmhelper.presentation.components.button
 
+import android.R.attr.contentDescription
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,6 +52,12 @@ fun RoundButton(
         ,
         contentAlignment = Alignment.Center
     ) {
+       if(icon!= null) Icon(
+            painter = painterResource(icon),
+            contentDescription = "Button icon",
+           tint = MaterialTheme.colorScheme.secondaryContainer,
+           modifier = Modifier.fillMaxSize(0.6f)
+        )
         Text(
             text = text,
             color = MaterialTheme.colorScheme.onSecondary,
@@ -76,6 +85,6 @@ enum class RoundButtonSizes(val height: Dp, val width: Dp) {
 @Composable
 fun previewRoundedButton() {
     DMHelperTheme {
-        RoundButton("Characters", {})
+        RoundButton("Characters", {}, icon=R.drawable.ic_back)
     }
 }

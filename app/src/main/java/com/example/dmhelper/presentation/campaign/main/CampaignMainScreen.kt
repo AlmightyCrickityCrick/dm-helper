@@ -56,8 +56,9 @@ fun CampaignMainScreen(
         Column(verticalArrangement = Arrangement.SpaceBetween) {
             RoundButton(
                 size = RoundButtonSizes.S,
-                text = "Characters",
-                onClick = { navController.navigate(ScreenRoute.CharacterListRoute.route) },
+                text = "",
+                icon = R.drawable.ic_back,
+                onClick = { navController.popBackStack()},
                 modifier = Modifier.padding(20.dp)
             )
             Box(
@@ -74,7 +75,7 @@ fun CampaignMainScreen(
                         .offset(x = (-290 * wFactor).dp, y = (-30 * wFactor).dp)
                 )
                 RoundButton(
-                    "Characters", onClick = { /*navController.navigate(...)*/ },
+                    "Characters", onClick = { navController.navigate(ScreenRoute.CharacterListRoute.route) },
                     modifier = Modifier
                         .offset(x = (-160 * wFactor).dp, y = (60 * wFactor).dp),
                     size = RoundButtonSizes.M

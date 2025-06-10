@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import com.example.dmhelper.R
+import com.example.dmhelper.data.character.AbilityType
 import com.example.dmhelper.data.character.ClassEnum
 import com.example.dmhelper.data.character.ClassEnum.BARBARIAN
 import com.example.dmhelper.data.character.ClassEnum.BARD
@@ -38,18 +39,18 @@ fun getFactors(): Pair<Float, Float> {
 
 fun getResource(charClassEnum: ClassEnum?) = when (charClassEnum) {
     ROGUE -> R.drawable.ic_rogue
-    BARD -> R.drawable.ic_crown
-    WARLOCK -> R.drawable.ic_crown
-    RANGER -> R.drawable.ic_crown
-    MONK -> R.drawable.ic_crown
-    PALADIN -> R.drawable.ic_crown
-    BARBARIAN -> R.drawable.ic_crown
-    SORCERER -> R.drawable.ic_crown
-    DRUID -> R.drawable.ic_crown
-    CLERIC -> R.drawable.ic_crown
-    WIZARD -> R.drawable.ic_crown
-    FIGHTER -> R.drawable.ic_crown
-    null -> R.drawable.ic_crown
+    BARD -> R.drawable.ic_bard
+    WARLOCK -> R.drawable.ic_warlock
+    RANGER -> R.drawable.ic_ranger
+    MONK -> R.drawable.ic_monk
+    PALADIN -> R.drawable.ic_paladin
+    BARBARIAN -> R.drawable.ic_barbarian
+    SORCERER -> R.drawable.ic_sorcerer
+    DRUID -> R.drawable.ic_druid
+    CLERIC -> R.drawable.ic_cleric
+    WIZARD -> R.drawable.ic_wizard
+    FIGHTER -> R.drawable.ic_fighter
+    null -> R.drawable.ic_fighter
 }
 
 fun getResource(charRaceEnum: RaceEnum?) = when (charRaceEnum) {
@@ -69,5 +70,13 @@ fun getResource(charRaceEnum: RaceEnum?) = when (charRaceEnum) {
     RaceEnum.GENASI -> R.drawable.genasi
     RaceEnum.TRITON -> R.drawable.triton
     null -> R.drawable.human
+}
 
+fun getResource(abilityType: AbilityType) = when(abilityType){
+    AbilityType.STRENGTH -> R.drawable.ic_strength
+    AbilityType.DEXTERITY -> R.drawable.ic_dexterity
+    AbilityType.CONSTITUTION -> R.drawable.ic_constitution
+    AbilityType.INTELLIGENCE -> R.drawable.ic_intelligence
+    AbilityType.WISDOM -> R.drawable.ic_wisdom
+    AbilityType.CHARISMA -> R.drawable.ic_charisma
 }
