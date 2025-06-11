@@ -59,10 +59,10 @@ fun SessionEditorScreen(
     viewModel: SessionEditorViewModel = koinViewModel(),
     createSessionDTO: CreateSessionDTO
 ) {
-    val image = when (createSessionDTO.map) {
-        R.drawable.map_garden.toString() -> R.drawable.map_garden
-        R.drawable.map_desert_tomb.toString() -> R.drawable.map_desert_tomb
-        else -> R.drawable.map_garden
+    val (image, gridSize) = when (createSessionDTO.map) {
+        "garden" -> Pair(R.drawable.map_garden, 56)
+        "desert" -> Pair(R.drawable.map_desert_tomb, 38)
+        else -> Pair(R.drawable.map_garden, 56)
     }
     Scaffold(
         backgroundColor = MaterialTheme.colorScheme.background.copy(alpha = 0f),
@@ -72,7 +72,7 @@ fun SessionEditorScreen(
     ) { _ ->
         MapEditorScreen(
             mapPainter = painterResource(image),
-            gridSize = 64,
+            gridSize = gridSize,
             onBackPressed = { navController.popBackStack() },
             onEvent = { event -> viewModel.onUiEvent(event) },
             viewModel

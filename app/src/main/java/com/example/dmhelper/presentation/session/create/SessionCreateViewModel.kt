@@ -36,8 +36,8 @@ class SessionCreateViewModel(
             mapInputState = PickerFormUiState(
                 chosenOption = 0,
                 options = mutableMapOf(
-                    0 to R.drawable.map_garden.toString(),
-                    1 to R.drawable.map_desert_tomb.toString()
+                    0 to "garden",
+                    1 to "desert"
                 )
             ),
             mapFormState = ImageState(),
