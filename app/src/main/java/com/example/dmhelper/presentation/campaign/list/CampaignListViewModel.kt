@@ -1,5 +1,6 @@
 package com.example.dmhelper.presentation.campaign.list
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dmhelper.data.campaign.CampaignListDTO
@@ -72,6 +73,7 @@ class CampaignListViewModel(
         viewModelScope.launch {
             id = userRepository.getId()
             val result = repository.getListCampaigns(id)
+            Log.d("Repository", "CampaignViewModel: $result")
             _campaignListState.update { result }
             getCharacterList()
         }
@@ -90,13 +92,14 @@ class CampaignListViewModel(
 
     fun joinCampaign() {
         viewModelScope.launch {
-            val result = repository.joinCampaign(
-                JoinCampaignDTO(
-                    id,
-                    joinFormState.value.characterPickerState.chosenOption,
-                    joinFormState.value.codeInputState.fieldText,
-                )
+            val camp =JoinCampaignDTO(
+                id,
+                joinFormState.value.characterPickerState.chosenOption,
+                joinFormState.value.codeInputState.fieldText,
             )
+            Log.d("Repository", "Joining Campaign $camp")
+            val result = repository.joinCampaign(camp)
+            getCampaignList()
         }
     }
 }

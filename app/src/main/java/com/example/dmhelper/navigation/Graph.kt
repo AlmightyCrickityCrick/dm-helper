@@ -1,5 +1,6 @@
 package com.example.dmhelper.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.example.dmhelper.data.campaign.CampaignDTO
@@ -54,6 +55,7 @@ sealed class ScreenRoute(val route: String) {
         CreateCharacterRoute -> CharacterCreateScreen(navController = navController)
         is CampaignMainRoute -> {
             val campaign = CampaignDTO(this.campaignId, this.campaignName, this.isOwner)
+            Log.d("Repository", "$campaignId")
             CampaignMainScreen(navController = navController, campaign = campaign)
         }
         is SessionListRoute -> SessionListScreen(navController = navController, campaignId = this.campaignId)

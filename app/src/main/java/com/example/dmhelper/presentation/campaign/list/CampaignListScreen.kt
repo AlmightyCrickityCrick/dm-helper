@@ -1,6 +1,7 @@
 package com.example.dmhelper.presentation.campaign.list
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -89,6 +90,7 @@ fun CampaignListScreen(
                 horizontalAlignment = Alignment.End
             ) {
                 for (camp in campaignList.list) {
+                    Log.d("Repository", "CampaignListId: ${camp}")
                     if (!camp.isOwner) {
                         ItemBoard(text = camp.name, onClick = {navController.navigate(camp.toRoute())})
                     } else {
@@ -130,7 +132,6 @@ fun CampaignListScreen(
                 onItemSelected = {charId -> viewModel.onCharacterSelected(charId)},
                 onLeftButtonClicked = {
                     viewModel.joinCampaign()
-                    viewModel.getCampaignList()
                     openJoinDialog.value = false
                 },
                 onRightButtonClicked = { openJoinDialog.value = false }

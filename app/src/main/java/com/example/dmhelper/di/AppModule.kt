@@ -15,6 +15,7 @@ import com.example.dmhelper.presentation.login.LoginViewModel
 import com.example.dmhelper.presentation.register.RegisterViewModel
 import com.example.dmhelper.presentation.session.create.SessionCreateViewModel
 import com.example.dmhelper.presentation.session.list.SessionListViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -40,24 +41,26 @@ val appModule = module {
     ) }
     viewModel { SessionListViewModel(
         get(),
-        userRepository = get()
+        get(),
+        get(),
     ) }
     viewModel { SessionCreateViewModel(
         get(),
-        characterRepository = get()
+        characterRepository = get(),
+        get()
     ) }
     viewModel { CampaignMainViewModel(get()) }
 
     single {
         Retrofit.Builder()
-            .baseUrl("https://your.api.url/")
+            .baseUrl("https://5744-89-28-69-173.ngrok-free.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
     single { get<Retrofit>().create(ApiService::class.java) }
-    single { CharacterRepository(get()) }
-    single { CampaignRepository(get()) }
-    single { SessionRepository(get()) }
-    single <UserRepository>{ UserRepositoryImpl(get()) }
+    single { CharacterRepository(get(), androidContext()) }
+    single { CampaignRepository(get(), androidContext()) }
+    single { SessionRepository(get(), androidContext()) }
+    single <UserRepository>{ UserRepositoryImpl(get(), androidContext()) }
 
 }

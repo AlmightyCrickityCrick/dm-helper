@@ -73,12 +73,12 @@ interface ApiService {
     ): String
 
     // Auth
-    @POST("auth/login")
-    suspend fun login(@Body authDTO: AuthDTO): Result<LoginResponseDTO>
+    @POST("users/login")
+    suspend fun login(@Body authDTO: AuthDTO): LoginResponseDTO
 
-    @POST("auth/register")
-    suspend fun register(@Body registerDTO: RegisterDTO): Result<LoginResponseDTO>
+    @POST("users")
+    suspend fun register(@Body registerDTO: RegisterDTO): LoginResponseDTO
 
-    @POST("auth/signout")
+    @POST("users/signout")
     suspend fun signout(): Result<Boolean>
 }

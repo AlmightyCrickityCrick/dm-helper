@@ -17,15 +17,15 @@ class CampaignMainViewModel(
         FieldFormUiState()
     )
     val codeFormState: StateFlow<FieldFormUiState> = _codeFormState.asStateFlow()
-    var camapignId = -1
+    private var campaignId = -1
 
     fun setCampaignId(id: Int) {
-        camapignId = id
+        campaignId = id
     }
 
     fun getCampaignCode() {
         viewModelScope.launch {
-            val result = repository.getCampaignCode(camapignId)
+            val result = repository.getCampaignCode(campaignId)
             _codeFormState.update { it.copy(fieldText = result) }
         }
     }

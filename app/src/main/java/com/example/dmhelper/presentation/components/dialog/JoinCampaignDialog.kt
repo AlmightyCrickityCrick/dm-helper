@@ -87,9 +87,9 @@ fun JoinCampaignDialog(
                 }
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
                     PrimaryButton(
-                        text = "Create",
+                        text = "join",
                         isEnabled = true,
-                        onClick = onLeftButtonClicked,
+                        onClick = {onLeftButtonClicked.invoke()},
                         modifier = Modifier
                             .weight(0.4f)
                             .padding(horizontal = 30.dp)
@@ -97,7 +97,7 @@ fun JoinCampaignDialog(
                     PrimaryButton(
                         text = "Cancel",
                         isEnabled = true,
-                        onClick = onRightButtonClicked,
+                        onClick = {onRightButtonClicked.invoke()},
                         modifier = Modifier
                             .weight(0.4f)
                             .padding(horizontal = 30.dp)

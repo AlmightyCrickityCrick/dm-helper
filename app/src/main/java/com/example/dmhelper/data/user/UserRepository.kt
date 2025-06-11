@@ -10,4 +10,5 @@ interface UserRepository {
     suspend fun register(registerDTO: RegisterDTO): Result<LoginResponseDTO>
     suspend fun signout(): Result<Boolean>
     suspend fun getId() : Int
+    suspend fun getUsername(): String
 }

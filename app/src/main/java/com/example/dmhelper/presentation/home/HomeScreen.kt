@@ -8,22 +8,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.dmhelper.R
 import com.example.dmhelper.navigation.ScreenRoute
-import com.example.dmhelper.presentation.common.OrientationPreview
 import com.example.dmhelper.presentation.common.getFactors
 import com.example.dmhelper.presentation.components.board.TopBoard
 import com.example.dmhelper.presentation.components.button.RoundButton
 import com.example.dmhelper.presentation.components.button.RoundButtonSizes
-import com.example.dmhelper.ui.theme.DMHelperTheme
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -37,7 +36,9 @@ fun HomeScreen(navController: NavHostController,
             .fillMaxSize()
             .paint(painterResource(R.drawable.bg_main), contentScale = ContentScale.Crop)
     ) { _ ->
-        TopBoard("Ave, ${viewModel.getUsername()}", {})
+        val username by viewModel.username.collectAsStateWithLifecycle()
+        viewModel.getUsername()
+        TopBoard("Ave, $username", {})
         val (wFactor, hFactor) = getFactors()
         Box(
             contentAlignment = Alignment.CenterEnd,

@@ -2,6 +2,8 @@ package com.example.dmhelper.presentation.session.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.dmhelper.data.campaign.CampaignRepository
+import com.example.dmhelper.data.character.CharacterRepository
 import com.example.dmhelper.data.session.SessionListDTO
 import com.example.dmhelper.data.session.SessionRepository
 import com.example.dmhelper.data.user.UserRepository
@@ -14,6 +16,7 @@ import kotlinx.coroutines.launch
 
 class SessionListViewModel(
     private val repository: SessionRepository,
+    private val campaignRepository: CampaignRepository,
     private val userRepository : UserRepository
 ) :
     ViewModel() {
@@ -25,7 +28,8 @@ class SessionListViewModel(
     fun getSessionList(campaignId: Int) {
         viewModelScope.launch {
             val id = userRepository.getId()
-            val result = repository.getSessions(id, campaignId)
+            val (character, isDm )= campaignRepository.getCampaignCharacterUser(campaignId, id)
+            val result = repository.getSessions(character, campaignId, isDm)
             _sessionFormState.update { result }
         }
     }

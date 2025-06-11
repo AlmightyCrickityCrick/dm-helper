@@ -7,7 +7,6 @@ import com.example.dmhelper.data.user.dto.AuthDTO
 import com.example.dmhelper.data.user.dto.LoginResponseDTO
 import com.example.dmhelper.data.common.Result
 import com.example.dmhelper.data.user.UserRepository
-import com.example.dmhelper.data.user.UserRepositoryImpl
 import com.example.dmhelper.presentation.common.FieldFormUiState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -83,7 +82,7 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
         viewModelScope.launch {
             val result = repository.login(
                 AuthDTO(
-                    username = loginFormState.value.usernameFormState.fieldText.trim(),
+                    email = loginFormState.value.usernameFormState.fieldText.trim(),
                     password = loginFormState.value.passwordFormState.fieldText.trim()
                 )
             )

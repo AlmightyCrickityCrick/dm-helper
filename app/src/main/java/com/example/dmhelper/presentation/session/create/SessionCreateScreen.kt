@@ -29,6 +29,7 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -44,6 +45,7 @@ import com.example.dmhelper.data.session.CreateSessionResponseDTO
 import com.example.dmhelper.presentation.common.OrientationPreview
 import com.example.dmhelper.presentation.components.button.AddButton
 import com.example.dmhelper.presentation.components.button.PrimaryButton
+import com.example.dmhelper.presentation.components.input.PickerInput
 import com.example.dmhelper.presentation.session.create.image.ImagePicker
 import com.example.dmhelper.ui.theme.DMHelperTheme
 import kotlinx.coroutines.flow.Flow
@@ -85,8 +87,9 @@ fun SessionCreateScreen(
                 Column(modifier = Modifier.weight(0.45f).fillMaxHeight().padding(vertical = 42.dp)) {
                     LeftCreateScreen(
                         sessionForm = sessionForm,
-                        onInputChanged = { newValue -> viewModel.onNameChanged(newValue)},
-                        onMapChanged = { uri, type, file -> viewModel.uploadMap(uri, type, file) }
+                        onInputChanged = { newValue -> viewModel.onNameChanged(newValue) },
+                        onMapChanged = { uri, type, file -> viewModel.uploadMap(uri, type, file) },
+                        onMapSelected = {newValue -> viewModel.onMapSelected(newValue)}
                     )
                     Spacer(Modifier.weight(1f))
                     PrimaryButton(
@@ -110,7 +113,12 @@ fun SessionCreateScreen(
 }
 
 @Composable
-private fun LeftCreateScreen(sessionForm: SessionCreateFormState, onInputChanged: (newValue: String) -> Unit, onMapChanged: (Uri, String?, File) -> Unit) {
+private fun LeftCreateScreen(
+    sessionForm: SessionCreateFormState,
+    onInputChanged: (newValue: String) -> Unit,
+    onMapChanged: (Uri, String?, File) -> Unit,
+    onMapSelected:(Int) -> Unit
+    ) {
     SimpleInput(
         state = sessionForm.nameFormState,
         placeholderInt = R.string.session_name,
@@ -121,11 +129,11 @@ private fun LeftCreateScreen(sessionForm: SessionCreateFormState, onInputChanged
             .height(200.dp)
             .padding(vertical = 20.dp)
     ) {
-        SimpleInput(
-            state = sessionForm.mapInputState,
-            placeholderInt = R.string.map_name,
-            action = {},
-            modifier = Modifier.height(50.dp).weight(4f)
+        PickerInput(
+            pickerFormState = sessionForm.mapInputState,
+            placeholder = stringResource( R.string.map_name),
+            onItemSelected = {newValue -> onMapSelected.invoke(newValue)},
+            modifier = Modifier.height(80.dp).weight(4f)
         )
         Spacer(Modifier.weight(2f))
         ImagePicker(
