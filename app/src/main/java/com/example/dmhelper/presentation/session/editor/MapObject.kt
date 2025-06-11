@@ -1,5 +1,6 @@
 package com.example.dmhelper.presentation.session.editor
 
+import com.example.dmhelper.data.session.DifficultyClass
 import java.util.UUID
 
 data class MapObject(
@@ -11,5 +12,5 @@ data class MapObject(
     val visible: Boolean = true,
     val canPickup: Boolean = false,
     val discoverable: Boolean = false,
-    val dc: Int = 10
+    val dc: DifficultyClass = DifficultyClass.EASY
 )

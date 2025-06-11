@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.booksharing.presentation.components.input.SimpleInput
 import com.example.dmhelper.R
+import com.example.dmhelper.data.session.DifficultyClass
 import com.example.dmhelper.presentation.common.FieldFormUiState
 import com.example.dmhelper.presentation.common.getFactors
 import com.example.dmhelper.presentation.session.editor.MapObject
@@ -71,7 +72,9 @@ fun EditorBoard(objectState: MapObject, onEvent: (SessionEditorUiEvent) -> Unit,
                 modifier = Modifier
                     .align(
                         Alignment.TopEnd
-                    ).size(40.dp).padding(top = 10.dp, end=12.dp)
+                    )
+                    .size(40.dp)
+                    .padding(top = 10.dp, end = 12.dp)
                     .clickable(onClick = { onEvent(SessionEditorUiEvent.RemoveObject(objectState.id)) })
             )
             Column(
@@ -86,10 +89,10 @@ fun EditorBoard(objectState: MapObject, onEvent: (SessionEditorUiEvent) -> Unit,
                     Icon(
                         painterResource(R.drawable.ic_active),
                         contentDescription = "Is Visible",
-                        tint = if (objectState.visible) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.surfaceContainer,
+                        tint = if (objectState.visible) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.secondaryContainer,
                         modifier = Modifier
                             .size(36.dp)
-                            .clickable(onClick = {})
+                            .clickable(onClick = { onEvent(SessionEditorUiEvent.ChangeVisibility(objectState.id, !objectState.visible)) })
                     )
                     Text(
                         text = "Visible",
@@ -101,10 +104,10 @@ fun EditorBoard(objectState: MapObject, onEvent: (SessionEditorUiEvent) -> Unit,
                     Icon(
                         painterResource(R.drawable.ic_active),
                         contentDescription = "Is Visible",
-                        tint = if (objectState.visible) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.surfaceContainer,
+                        tint = if (objectState.discoverable) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.secondaryContainer,
                         modifier = Modifier
                             .size(36.dp)
-                            .clickable(onClick = {})
+                            .clickable(onClick = { onEvent(SessionEditorUiEvent.ChangeDiscoverability(objectState.id, !objectState.discoverable)) })
                     )
                     Text(
                         text = "Discover",
@@ -125,10 +128,10 @@ fun EditorBoard(objectState: MapObject, onEvent: (SessionEditorUiEvent) -> Unit,
                     Icon(
                         painterResource(R.drawable.ic_active),
                         contentDescription = "Is Visible",
-                        tint = if (objectState.visible) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.surfaceContainer,
+                        tint = if (objectState.canPickup) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.secondaryContainer,
                         modifier = Modifier
                             .size(36.dp)
-                            .clickable(onClick = {})
+                            .clickable(onClick = { onEvent(SessionEditorUiEvent.ChangePickupability(objectState.id, !objectState.canPickup)) })
                     )
                     Text(
                         text = "Pick Up",
@@ -140,13 +143,20 @@ fun EditorBoard(objectState: MapObject, onEvent: (SessionEditorUiEvent) -> Unit,
                     Icon(
                         painterResource(R.drawable.ic_active),
                         contentDescription = "Is Visible",
-                        tint = if (objectState.visible) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.surfaceContainer,
+                        tint = MaterialTheme.colorScheme.onSecondary,
                         modifier = Modifier
                             .size(36.dp)
-                            .clickable(onClick = {})
+                            .clickable(onClick = {
+                                onEvent(
+                                    SessionEditorUiEvent.ChangeDC(
+                                        objectState.id,
+                                        if (objectState.dc == DifficultyClass.LEGENDARY) DifficultyClass.EASY else DifficultyClass.entries[objectState.dc.ordinal + 1]
+                                    )
+                                )
+                            })
                     )
                     Text(
-                        text = "DC",
+                        text = "DC ${objectState.dc}",
                         color = MaterialTheme.colorScheme.onPrimary,
                         style = MaterialTheme.typography.bodyMedium,
                     )

@@ -23,6 +23,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,6 +50,7 @@ import com.example.dmhelper.presentation.components.button.RoundButton
 import com.example.dmhelper.presentation.components.button.RoundButtonSizes
 import com.example.dmhelper.ui.theme.DMHelperTheme
 import org.koin.androidx.compose.koinViewModel
+import org.koin.androidx.compose.viewModel
 
 @Composable
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -70,11 +72,10 @@ fun SessionEditorScreen(
     ) { _ ->
         MapEditorScreen(
             mapPainter = painterResource(image),
-            availableObjects = listOf(
-                MapObjectTemplate("rogue", R.drawable.ic_rogue), MapObjectTemplate("fighter", R.drawable.ic_fighter)
-            ),
             gridSize = 64,
             onBackPressed = { navController.popBackStack() },
+            onEvent = { event -> viewModel.onUiEvent(event) },
+            viewModel
         )
     }
 }
@@ -82,15 +83,18 @@ fun SessionEditorScreen(
 @Composable
 fun MapEditorScreen(
     mapPainter: Painter,
-    availableObjects: List<MapObjectTemplate>,
     gridSize: Int = 64,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    onEvent: (SessionEditorUiEvent) -> Unit,
+    viewModel: SessionEditorViewModel
 ) {
+    val availableObjects by viewModel.availableObjects.collectAsState()
+    val placedObjects by viewModel.placedObjects.collectAsState()
+    val name by viewModel.name.collectAsState()
+
     var selectedTemplate by remember { mutableStateOf<MapObjectTemplate?>(null) }
-    var placedObjects by remember { mutableStateOf<List<MapObject>>(emptyList()) }
     var selectedObject by remember { mutableStateOf<MapObject?>(null) }
     var isLive by rememberSaveable { mutableStateOf<Boolean>(false) }
-    var name by remember { mutableStateOf<String>("Objects") }
 
     Box(
         modifier = Modifier
@@ -107,7 +111,7 @@ fun MapEditorScreen(
                             gridX = snappedX,
                             gridY = snappedY
                         )
-                        placedObjects = placedObjects + newObj
+                        viewModel.addPlacedObject(newObj)
                     }
                 }
             }
@@ -143,13 +147,13 @@ fun MapEditorScreen(
             ItemBoard(
                 text = "NPC", modifier = Modifier
                     .width(150.dp)
-                    .height(80.dp), onClick = { name = "NPC" }, leftTextPadding = 10
+                    .height(80.dp), onClick = { viewModel.setName("NPC") }, leftTextPadding = 10
             )
             Spacer(Modifier.height(20.dp))
             ItemBoard(
                 text = "Object", modifier = Modifier
                     .width(150.dp)
-                    .height(80.dp), onClick = { name = "Objects" }, leftTextPadding = 10
+                    .height(80.dp), onClick = { viewModel.setName("Objects") }, leftTextPadding = 10
             )
         }
 
@@ -160,11 +164,17 @@ fun MapEditorScreen(
         ) {
             RoundButton(size = RoundButtonSizes.S, onClick = { isLive = !isLive }, text = "", icon = R.drawable.ic_live)
             Spacer(Modifier.width(20.dp))
-            RoundButton(size = RoundButtonSizes.S, onClick = {onBackPressed.invoke()}, text = "", icon = R.drawable.ic_save)
+            RoundButton(size = RoundButtonSizes.S, onClick = { onBackPressed.invoke() }, text = "", icon = R.drawable.ic_save)
         }
 
-        selectedObject?.let {
-            EditorBoard(objectState = it, onEvent = {}, modifier = Modifier.align(Alignment.BottomCenter))
+        selectedObject?.let { selected ->
+            placedObjects.find { it.id == selected.id }?.let { upToDateObj ->
+                EditorBoard(
+                    objectState = upToDateObj,
+                    onEvent = { event -> viewModel.onUiEvent(event) },
+                    modifier = Modifier.align(Alignment.BottomCenter)
+                )
+            }
         }
 
         if (!isLive) LeftDrawer(
