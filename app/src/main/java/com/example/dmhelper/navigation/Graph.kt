@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.example.dmhelper.data.campaign.CampaignDTO
+import com.example.dmhelper.data.session.CreateSessionDTO
 import com.example.dmhelper.presentation.campaign.list.CampaignListScreen
 import com.example.dmhelper.presentation.campaign.main.CampaignMainScreen
 import com.example.dmhelper.presentation.character.create.CharacterCreateScreen
@@ -12,6 +13,7 @@ import com.example.dmhelper.presentation.home.HomeScreen
 import com.example.dmhelper.presentation.login.LoginScreen
 import com.example.dmhelper.presentation.register.RegisterScreen
 import com.example.dmhelper.presentation.session.create.SessionCreateScreen
+import com.example.dmhelper.presentation.session.editor.SessionEditorScreen
 import com.example.dmhelper.presentation.session.list.SessionListScreen
 import kotlinx.serialization.Serializable
 
@@ -43,6 +45,8 @@ sealed class ScreenRoute(val route: String) {
     data class SessionListRoute(val campaignId: Int) : ScreenRoute("sessions")
     @Serializable
     data class SessionCreateRoute(val campaignId: Int) : ScreenRoute("session/create")
+    @Serializable
+    data class SessionEditorRoute(val campaignId: Int, val imageSrc : String) : ScreenRoute("session/create")
 
     @Composable
     fun Screen(navController: NavHostController) = when (this) {
@@ -60,5 +64,6 @@ sealed class ScreenRoute(val route: String) {
         }
         is SessionListRoute -> SessionListScreen(navController = navController, campaignId = this.campaignId)
         is SessionCreateRoute -> SessionCreateScreen(navController=navController, campaignId = this.campaignId)
+        is SessionEditorRoute -> SessionEditorScreen(navController = navController, createSessionDTO = CreateSessionDTO("", this.campaignId, this.imageSrc, arrayListOf()))
     }
 }

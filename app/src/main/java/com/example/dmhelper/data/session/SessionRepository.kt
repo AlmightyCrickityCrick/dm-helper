@@ -33,8 +33,8 @@ class SessionRepository(private val api: ApiService, private val context: Contex
         this.campaignId = campaignId
         Log.d("Repository", "Fetching Sessions for $campaignFile")
         fetchData()
-        val sessionShort = sessionList.map { session -> SessionDTO(session.id?:0, session.name, characterId in session.charIdAllowed || isOwner) }
-        return SessionListDTO(sessionShort as ArrayList<SessionDTO>)
+        val sessionShort = sessionList.map { session -> SessionShortDTO(session.id?:0, session.name, session.map, characterId in session.charIdAllowed || isOwner) }
+        return SessionListDTO(sessionShort as ArrayList<SessionShortDTO>)
     }
     suspend fun createSession(session: CreateSessionDTO): Result<CreateSessionResponseDTO> {
         val id = generateId()

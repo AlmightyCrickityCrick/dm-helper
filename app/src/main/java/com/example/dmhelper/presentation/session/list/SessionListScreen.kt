@@ -27,6 +27,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.dmhelper.R
+import com.example.dmhelper.data.campaign.toRoute
+import com.example.dmhelper.data.session.toRoute
 import com.example.dmhelper.navigation.ScreenRoute
 import com.example.dmhelper.presentation.common.OrientationPreview
 import com.example.dmhelper.presentation.common.getFactors
@@ -81,7 +83,7 @@ fun SessionListScreen(
                                 modifier = modifier
                             )
                         },
-                        onClick = {})
+                        onClick = {navController.navigate(ses.toRoute())})
                     Spacer(Modifier.height(16.dp))
                 }
                 AddButton(

@@ -6,7 +6,7 @@ import com.example.dmhelper.data.character.CharacterListDTO
 import com.example.dmhelper.data.character.CharacterShortDTO
 import com.example.dmhelper.data.character.ClassEnum
 import com.example.dmhelper.data.character.RaceEnum
-import com.example.dmhelper.data.session.SessionDTO
+import com.example.dmhelper.data.session.SessionShortDTO
 import com.example.dmhelper.data.session.SessionListDTO
 
 object Util {
@@ -25,13 +25,13 @@ object Util {
         )
     )
 
-    val mockSessions = SessionListDTO(
-        arrayListOf(
-            SessionDTO(1, "Sessions 1", true),
-            SessionDTO(2, "Sessions 2", true),
-            SessionDTO(3, "Sessions 3", false),
-            SessionDTO(4, "Sessions 4", false),
-            SessionDTO(5, "Sessions 5", true),
-        )
-    )
+//    val mockSessions = SessionListDTO(
+//        arrayListOf(
+//            SessionShortDTO(1, "Sessions 1", true),
+//            SessionShortDTO(2, "Sessions 2", true),
+//            SessionShortDTO(3, "Sessions 3", false),
+//            SessionShortDTO(4, "Sessions 4", false),
+//            SessionShortDTO(5, "Sessions 5", true),
+//        )
+//    )
 }

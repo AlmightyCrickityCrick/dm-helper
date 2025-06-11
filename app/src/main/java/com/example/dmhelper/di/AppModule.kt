@@ -14,6 +14,7 @@ import com.example.dmhelper.presentation.home.HomeViewModel
 import com.example.dmhelper.presentation.login.LoginViewModel
 import com.example.dmhelper.presentation.register.RegisterViewModel
 import com.example.dmhelper.presentation.session.create.SessionCreateViewModel
+import com.example.dmhelper.presentation.session.editor.SessionEditorViewModel
 import com.example.dmhelper.presentation.session.list.SessionListViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -50,6 +51,7 @@ val appModule = module {
         get()
     ) }
     viewModel { CampaignMainViewModel(get()) }
+    viewModel { SessionEditorViewModel(get(), get()) }
 
     single {
         Retrofit.Builder()

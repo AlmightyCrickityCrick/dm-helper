@@ -37,11 +37,12 @@ fun ItemBoard(
     onClick: () -> Unit,
     LeftIcon: @Composable() ((modifier: Modifier) -> Unit)? = null,
     RightIcon: @Composable (modifier: Modifier) -> Unit = {},
+    leftTextPadding: Int = 42,
     modifier: Modifier = Modifier,
 ) {
     val (wFactor, hFactor) = getFactors()
     Box(
-        modifier = Modifier
+        modifier = modifier
             .height((80 * wFactor).dp)
             .width((330 * wFactor).dp)
             .clip(RoundedCornerShape(4.dp))
@@ -52,7 +53,7 @@ fun ItemBoard(
         contentAlignment = Alignment.Center
     ) {
         Row(Modifier.padding(horizontal = 18.dp), verticalAlignment = Alignment.CenterVertically) {
-           if(LeftIcon == null) Spacer(Modifier.size(42.dp)) else LeftIcon(Modifier.size(42.dp))
+           if(LeftIcon == null) Spacer(Modifier.size(leftTextPadding.dp)) else LeftIcon(Modifier.size(42.dp))
             Column(Modifier.weight(1f).fillMaxHeight().padding(horizontal = 12.dp), verticalArrangement = Arrangement.Center) {
                 Text(
                     text = text,

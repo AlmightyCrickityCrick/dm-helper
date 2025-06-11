@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.example.dmhelper.navigation.ScreenRoute
 
 @Composable
 fun RootNavigationGraph(navController: NavHostController) {
@@ -27,6 +28,10 @@ fun RootNavigationGraph(navController: NavHostController) {
             }
             composable<ScreenRoute.SessionCreateRoute> { backStackEntry ->
                 val session: ScreenRoute.SessionCreateRoute = backStackEntry.toRoute()
+                session.Screen(navController)
+            }
+            composable<ScreenRoute.SessionEditorRoute> { backStackEntry ->
+                val session: ScreenRoute.SessionEditorRoute = backStackEntry.toRoute()
                 session.Screen(navController)
             }
         }
